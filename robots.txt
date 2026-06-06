@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block 404 from indexing
+Disallow: /404.html
+
+# Sitemap location
+Sitemap: https://www.wajibu.co.uk/sitemap.xml
+
+# Crawl delay (be kind to the server)
+Crawl-delay: 10
