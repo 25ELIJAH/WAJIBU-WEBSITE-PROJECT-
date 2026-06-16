@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /
+
+# Serve .html file when clean URL is requested (no redirect — just internal rewrite)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.html [L]
+
+ErrorDocument 404 /404.html

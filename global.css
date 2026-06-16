@@ -30,7 +30,7 @@ p, li { max-width: 75ch; }
 
 #nb, #navbar {
   position: fixed; top: 20px; left: 50%; transform: translateX(-50%) !important;
-  z-index: 1000; height: 62px;
+  z-index: 1000; height: 62px !important;
   width: calc(100% - 40px) !important; max-width: 1080px !important;
   border-radius: 100px !important;
   display: flex; align-items: center; padding: 0 8px !important;
@@ -404,7 +404,7 @@ body.menu-open { overflow: hidden; }
   body { font-size: 16px; }
   .si, .section-inner, .footer-grid, .ftg,
   .hooks-inner, .sec-inner, .stats-row { max-width: 1300px; }
-  #nb, #navbar { height: 66px; max-width: 1200px !important; }
+  #nb, #navbar { height: 66px !important; max-width: 1200px !important; }
   .nm, .nav-menu { gap: 4px; }
 }
 

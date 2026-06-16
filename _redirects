@@ -1,0 +1,18 @@
+# Netlify clean URL rewrites — serves .html files at clean paths
+/about      /about.html     200
+/services   /services.html  200
+/insights   /insights.html  200
+/impact     /impact.html    200
+/contact    /contact.html   200
+/terms      /terms.html     200
+/privacy    /privacy.html   200
+
+# Redirect any .html requests to clean URLs
+/about.html     /about      301
+/services.html  /services   301
+/insights.html  /insights   301
+/impact.html    /impact     301
+/contact.html   /contact    301
+/terms.html     /terms      301
+/privacy.html   /privacy    301
+/index.html     /           301
