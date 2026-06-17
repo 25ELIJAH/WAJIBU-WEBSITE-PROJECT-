@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Contact WAJIBU | Book Your ESG Compliance Consultation</title>
 <meta name="description" content="Contact WAJIBU for expert ESG compliance, FCA Consumer Duty and CSRD advisory. Book a meeting with Samuel Orie, Founder and CEO."/>
-<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png"/>
-<link rel="shortcut icon" href="favicon.ico"/>
+<link rel="icon" type="image/jpeg" href="images/wajibu_logo.jpeg"/>
+<link rel="icon" type="image/x-icon" href="facicon.ico"/>
+<link rel="shortcut icon" href="facicon.ico"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="image" href="images/wajibu_logo.jpeg"/>
@@ -51,15 +52,16 @@ ul{list-style:none}
 /* ── NAVBAR ── */
 #nb{position:fixed;top:20px;left:0;right:0;z-index:1000;padding:0 24px}
 .ni{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:1280px;margin:0 auto;background:rgba(7,43,30,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.08);border-radius:100px;height:62px;padding:0 6px 0 14px;box-shadow:0 8px 40px rgba(0,0,0,.35)}
-.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.nlw{position:relative;width:50px;height:50px;flex-shrink:0}
-.nlg{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.3) 0%,transparent 70%);animation:lglow 2.5s ease-in-out infinite;z-index:0}
-.nlr{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,#D4A017 60deg,#E5C46A 120deg,transparent 180deg,transparent 240deg,#D4A017 300deg,transparent 360deg);animation:lspin 4s linear infinite;z-index:1}
-.nli{position:absolute;inset:-1px;border-radius:50%;background:#072B1E;z-index:1;margin:3px}
-.nlimg{position:relative;z-index:2;width:50px;height:50px;border-radius:50%;object-fit:cover;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
-.nlt{display:flex;flex-direction:column;gap:2px}
-.nln{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;letter-spacing:3px;line-height:1;white-space:nowrap}
-.nlg2{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--golds);white-space:nowrap;margin-top:3px}
+.logo-wrap{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.logo-ring-wrap{position:relative;width:50px;height:50px;flex-shrink:0}
+.logo-glow{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.3) 0%,transparent 70%);animation:lglow 2.5s ease-in-out infinite;z-index:0}
+.logo-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,#D4A017 60deg,#E5C46A 120deg,transparent 180deg,transparent 240deg,#D4A017 300deg,transparent 360deg);animation:lspin 4s linear infinite;z-index:1}
+.logo-ring::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--gdp)}
+.logo-img{position:relative;z-index:2;width:50px;height:50px;border-radius:50%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.logo-name{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;letter-spacing:3px;line-height:1;white-space:nowrap}
+.logo-tag{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--golds);white-space:nowrap;margin-top:3px}
+.logo-wrap:hover .logo-img{transform:scale(1.07)}
+.logo-wrap:hover .logo-ring{animation-duration:1.2s}
 #gnw{position:relative;display:flex;align-items:center}
 .gb{position:absolute;top:50%;transform:translateY(-50%);height:34px;background:rgba(212,160,23,.12);border-radius:50px;transition:left .35s cubic-bezier(.25,.46,.45,.94),width .35s cubic-bezier(.25,.46,.45,.94);pointer-events:none}
 .nm{display:flex;align-items:center;gap:2px;padding:0;position:relative;z-index:1}
@@ -151,8 +153,8 @@ body.mo{overflow:hidden}
 .pcol{display:flex;flex-direction:column;gap:20px;position:sticky;top:calc(var(--nh) + 20px)}
 .pcard{border-radius:20px;overflow:hidden;background:var(--gdp);box-shadow:0 24px 64px rgba(7,43,30,.25);position:relative;transition:box-shadow .4s ease}
 .pcard:hover{box-shadow:0 32px 80px rgba(7,43,30,.4),0 0 0 2px rgba(212,160,23,.4)}
-.pimgw{position:relative;overflow:hidden;aspect-ratio:4/5;max-height:460px}
-.pimg{width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .7s cubic-bezier(.25,.46,.45,.94);display:block}
+.pimgw{position:relative;overflow:hidden;aspect-ratio:2/3;min-height:480px;max-height:700px}
+.pimg{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .7s cubic-bezier(.25,.46,.45,.94);display:block}
 .pcard:hover .pimg{transform:scale(1.05)}
 .pgrad{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,43,30,.98) 0%,rgba(7,43,30,.35) 45%,transparent 75%);pointer-events:none}
 /* star cover — blends with dark desk at bottom-right */
@@ -276,17 +278,17 @@ body.mo{overflow:hidden}
 @media(max-width:1100px){
   .cgrid{grid-template-columns:1fr;gap:44px}
   .pcol{position:static}
-  .pimgw{max-height:400px}
+  .pimgw{min-height:380px;max-height:560px}
   .mtypes{grid-template-columns:repeat(3,1fr)}
   .fgrid{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(max-width:768px){
   .ni{height:56px;padding:0 6px 0 12px!important}
-  /* logo always visible and correctly sized on mobile */
-  .nlw{width:40px!important;height:40px!important;flex-shrink:0!important}
-  .nlimg{width:40px!important;height:40px!important}
-  .nln{font-size:17px!important;letter-spacing:2px!important}
-  .nlg2{font-size:7px!important;letter-spacing:1.5px!important}
+  /* logo — mobile sizing */
+  .logo-ring-wrap{width:40px!important;height:40px!important}
+  .logo-img{width:40px!important;height:40px!important}
+  .logo-name{font-size:17px!important;letter-spacing:2px!important}
+  .logo-tag{font-size:7px!important;letter-spacing:1.5px!important}
   .cmain{padding:52px 5%}
   .cher{padding:calc(var(--nh)+36px) 5% 44px}
   .cht{font-size:clamp(36px,7vw,54px)}
@@ -322,9 +324,9 @@ body.mo{overflow:hidden}
 <link rel="stylesheet" href="global.css"/>
 <style id="contact-nav-override">
 #nb .ni{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
-#nb .nav-logo{display:flex!important;align-items:center!important;gap:10px!important;flex-shrink:0}
-#nb .nln{font-size:22px!important;font-weight:700!important;color:#fff!important;letter-spacing:3px!important;line-height:1!important;white-space:nowrap!important;font-family:'Cormorant Garamond',Georgia,serif!important}
-#nb .nlg2{font-size:8px!important;color:#E5C46A!important;white-space:nowrap!important;display:block!important;margin-top:3px!important}
+#nb .logo-wrap{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;text-decoration:none!important}
+#nb .logo-name{font-size:22px!important;font-weight:700!important;color:#fff!important;letter-spacing:3px!important;line-height:1!important;white-space:nowrap!important;font-family:'Cormorant Garamond',Georgia,serif!important}
+#nb .logo-tag{font-size:8px!important;color:#E5C46A!important;white-space:nowrap!important;display:block!important;margin-top:3px!important;letter-spacing:2px!important;text-transform:uppercase!important}
 /* desktop: show nav links and CTA */
 #nb .nm{gap:2px!important;display:flex!important}
 #nb .ncta{background:linear-gradient(135deg,#D4A017,#E5C46A)!important;color:#072B1E!important;display:inline-flex!important}
@@ -333,9 +335,9 @@ body.mo{overflow:hidden}
   #nb .nm{display:none!important}
   #nb .ncta{display:none!important}
   #nb .nbg{display:flex!important;align-items:center!important;justify-content:center!important}
-  #nb .nav-logo{display:flex!important}
-  #nb .nln{font-size:17px!important;letter-spacing:2px!important}
-  #nb .nlg2{display:block!important;font-size:7px!important}
+  #nb .logo-wrap{display:flex!important}
+  #nb .logo-name{font-size:17px!important;letter-spacing:2px!important}
+  #nb .logo-tag{display:block!important;font-size:7px!important}
 }
 </style>
 </head>
@@ -346,16 +348,15 @@ body.mo{overflow:hidden}
 <!-- NAVBAR -->
 <nav id="nb" role="navigation" aria-label="Main navigation">
   <div class="ni">
-    <a href="index.html" class="nav-logo" aria-label="WAJIBU Home">
-      <div class="nlw">
-        <div class="nlg"></div>
-        <div class="nlr"></div>
-        <div class="nli"></div>
-        <img src="images/wajibu_logo.jpeg" alt="WAJIBU" class="nlimg" width="50" height="50"/>
+    <a href="index.html" class="logo-wrap" aria-label="WAJIBU Home">
+      <div class="logo-ring-wrap">
+        <div class="logo-glow"></div>
+        <div class="logo-ring"></div>
+        <img src="images/wajibu_logo.jpeg" alt="WAJIBU" class="logo-img" width="50" height="50"/>
       </div>
-      <div class="nlt">
-        <span class="nln">WAJIBU</span>
-        <span class="nlg2">Environmental &middot; Social &middot; Governance</span>
+      <div>
+        <div class="logo-name">WAJIBU</div>
+        <div class="logo-tag">Environmental &middot; Social &middot; Governance</div>
       </div>
     </a>
     <div id="gnw">
@@ -709,8 +710,8 @@ body.mo{overflow:hidden}
           <img src="images/wajibu_logo.jpeg" alt="WAJIBU" style="position:relative;z-index:2;width:42px;height:42px;border-radius:50%;object-fit:cover"/>
         </div>
         <div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:2px;line-height:1">WAJIBU</div>
-          <div style="font-size:7.5px;letter-spacing:1.8px;text-transform:uppercase;color:#E5C46A;margin-top:3px">Environmental &bull; Social &bull; Governance</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:3px;line-height:1">WAJIBU</div>
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#E5C46A;margin-top:3px">Environmental &bull; Social &bull; Governance</div>
         </div>
       </a>
       <p class="fmiss">ESG &amp; Social Responsibility Compliance &middot; FCA &middot; CSRD &middot; Consumer Duty</p>
