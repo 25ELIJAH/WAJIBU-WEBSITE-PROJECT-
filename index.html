@@ -335,9 +335,7 @@
     .footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
     .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.35); transition: color var(--tr); }
     .footer-legal a:hover { color: var(--golds); }
-    .footer-builder { font-size: 12px; color: rgba(255,255,255,0.35); width: 100%; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .footer-builder a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--tr); }
-    .footer-builder a:hover { color: var(--golds); }
+    .footer-reg { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; width: 100%; text-align: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
 
     /* ── MOBILE DRAWER ──────────────────────────────────────── */
     @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
@@ -365,6 +363,7 @@
       .testimonial-slide { padding: 36px 24px; }
       .footer-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
       .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .footer-bottom .footer-reg { align-self: center; text-align: center; }
       .footer-legal { flex-wrap: wrap; gap: 12px; }
     }
     @media (max-width: 480px) {
@@ -380,9 +379,9 @@
       .newsletter-form input { border-radius: 10px 10px 0 0; padding: 12px 16px; }
       .newsletter-form button { border-radius: 0 0 10px 10px; width: 100%; padding: 12px 16px; justify-content: center; display: flex; align-items: center; gap: 6px; }
       .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .footer-bottom .footer-reg { align-self: center; text-align: center; }
       .footer-legal { flex-wrap: wrap; gap: 10px; }
       .footer-contact-item { font-size: 13px; word-break: break-word; }
-      .footer-builder { font-size: 11px; }
     }
   </style>
 
@@ -1400,7 +1399,7 @@
         <a href="#">Cookies</a>
         <a href="#">Sitemap</a>
       </nav>
-      <p class="footer-builder">Built by <a href="https://wa.me/254740840018" target="_blank" rel="noopener noreferrer">ELIJAH JAMES (+254 740840018)</a></p>
+      <p class="footer-reg">WAJIBU LTD &middot; Company Registration No. 17247586 &middot; Registered in England</p>
     </div>
   </footer>
 

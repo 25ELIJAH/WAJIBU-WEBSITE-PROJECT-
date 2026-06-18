@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact WAJIBU | Book Your ESG Compliance Consultation</title>
+<meta name="description" content="Contact WAJIBU for expert ESG compliance, FCA Consumer Duty and CSRD advisory. Book a meeting with Samuel Orie, Founder and CEO."/>
+<link rel="icon" type="image/jpeg" href="images/wajibu_logo.jpeg"/>
+<link rel="icon" type="image/x-icon" href="facicon.ico"/>
+<link rel="shortcut icon" href="facicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preload" as="image" href="images/wajibu_logo.jpeg"/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"/></noscript>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:#1A2521;background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer}
+ul{list-style:none}
+
+/* ── VARS ── */
+:root{
+  --gd:#0A3D2A;--gdp:#072B1E;--gold:#D4A017;--golds:#E5C46A;--cream:#F8F5F0;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+  --tr:0.3s ease;--nh:90px;
+}
+@media(max-width:768px){:root{--nh:72px}}
+
+/* ── SCROLL PROGRESS ── */
+#spb{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--golds));z-index:9999;width:0;pointer-events:none}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes lglow{0%,100%{opacity:.4;transform:scale(.95)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes lspin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes drawRing{to{stroke-dashoffset:0}}
+@keyframes drawCheck{to{stroke-dashoffset:100}}
+@keyframes pFloat{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(var(--py,-180px)) translateX(var(--px,0px)) scale(0);opacity:0}}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+@keyframes cardUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes letterIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+
+/* ── NAVBAR ── */
+#navbar{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:1000;height:62px;width:calc(100% - 40px);max-width:1080px;border-radius:100px;display:flex;align-items:center;padding:0 8px;background:rgba(255,255,255,0.07);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.18);box-shadow:0 4px 24px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.08);transition:background 0.6s cubic-bezier(0.16,1,0.3,1),border-color 0.6s cubic-bezier(0.16,1,0.3,1),box-shadow 0.6s cubic-bezier(0.16,1,0.3,1)}
+#navbar.scrolled,#navbar:hover{background:rgba(7,43,30,0.96);border-color:rgba(212,160,23,0.22);box-shadow:0 8px 48px rgba(0,0,0,0.45)}
+.nav-inner{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.logo-wrap{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-ring-wrap{position:relative;width:50px;height:50px;flex-shrink:0}
+.logo-img{width:50px;height:50px;border-radius:50%;object-fit:cover;object-position:center;position:relative;z-index:2;display:block;will-change:transform;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.logo-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,#D4A017 60deg,#E5C46A 120deg,transparent 180deg,transparent 240deg,#D4A017 300deg,transparent 360deg);animation:logoSpin 4s linear infinite;will-change:transform;z-index:1}
+.logo-ring::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--gdp)}
+.logo-glow{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,0.3) 0%,transparent 70%);animation:logoGlow 2.5s ease-in-out infinite;will-change:opacity,transform;z-index:0}
+.logo-name{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;letter-spacing:3px;line-height:1}
+.logo-tag{font-size:8px;font-weight:400;letter-spacing:2px;color:var(--golds);text-transform:uppercase;margin-top:3px}
+.logo-wrap:hover .logo-img{transform:scale(1.07)}
+.logo-wrap:hover .logo-ring{animation-duration:1.2s}
+@keyframes logoSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes logoGlow{0%,100%{opacity:0.4;transform:scale(0.95)}50%{opacity:1;transform:scale(1.1)}}
+.goo-nav-wrap{position:relative;display:flex;align-items:center}
+.goo-layer{position:absolute;inset:-8px;pointer-events:none;overflow:visible}
+.goo-blob{position:absolute;height:calc(100% + 16px);top:-8px;background:rgba(212,160,23,0.22);border-radius:100px;left:0;width:0;transition:left 0.5s cubic-bezier(0.34,1.56,0.64,1),width 0.5s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s ease;opacity:0}
+.goo-nav-wrap:hover .goo-blob{opacity:1}
+.nav-menu{display:flex;align-items:center;gap:2px;list-style:none;position:relative;z-index:1}
+.nav-menu a{font-size:12px;font-weight:500;letter-spacing:1.1px;text-transform:uppercase;color:rgba(255,255,255,0.92);padding:9px 15px;border-radius:100px;display:block;white-space:nowrap;transition:color 0.3s ease;text-shadow:0 1px 8px rgba(0,0,0,0.6)}
+.nav-menu a:hover{color:var(--gold)}
+.nav-menu a[aria-current="page"]{color:var(--golds)}
+.nav-cta{background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp)!important;padding:11px 22px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:0.8px;flex-shrink:0;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s ease;box-shadow:0 4px 20px rgba(212,160,23,0.3)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,160,23,0.5)}
+.nav-burger{display:none;width:44px;height:44px;background:none;border:none;cursor:pointer;color:#fff;align-items:center;justify-content:center;position:relative;z-index:1100;flex-shrink:0}
+.burger-box{display:flex;flex-direction:column;gap:5px}
+.burger-line{display:block;width:24px;height:1.5px;background:currentColor;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);border-radius:2px}
+body.mo{overflow:hidden}
+
+/* ── HERO ── */
+.cher{min-height:44vh;background:linear-gradient(135deg,var(--gdp) 0%,var(--gd) 60%,#0d4a32 100%);display:flex;align-items:flex-end;padding:calc(var(--nh) + 56px) 5% 56px;position:relative;overflow:hidden}
+.cher::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.018'%3E%3Ccircle cx='40' cy='40' r='1'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.cher::after{content:'';position:absolute;top:-40%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.07) 0%,transparent 65%);pointer-events:none}
+.chin{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1}
+.chey{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--golds);font-weight:500;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.chey::before{content:'';width:28px;height:1px;background:var(--golds)}
+.cht{font-family:var(--serif);font-size:clamp(46px,6vw,82px);font-weight:700;color:#fff;line-height:1.04;margin-bottom:18px}
+.chs{font-size:16px;color:rgba(255,255,255,.6);max-width:540px;line-height:1.7;font-weight:300}
+.chst{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+.chsi{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.6)}
+.chsd{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* ── MAIN GRID ── */
+.cmain{padding:80px 5%;background:#fff}
+.cgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;max-width:1200px;margin:0 auto;align-items:start}
+
+/* ── FORMS COL ── */
+.fhey{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+.fht{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--gdp);line-height:1.15;margin-bottom:30px}
+.ftabs{display:flex;gap:0;background:rgba(10,61,42,.07);border-radius:50px;padding:4px;margin-bottom:32px}
+.ftb{flex:1;padding:12px 14px;border-radius:50px;border:none;background:transparent;color:rgba(10,61,42,.5);font-size:13px;font-weight:600;cursor:pointer;transition:all var(--tr);letter-spacing:.4px}
+.ftb.active{background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp);box-shadow:0 4px 16px rgba(212,160,23,.3)}
+.fpanel{display:none}
+.fpanel.active{display:block;animation:fadeUp .4s ease}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg.full{grid-column:1/-1}
+.fl{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(10,61,42,.55)}
+.fi,.fsl,.fta{width:100%;padding:13px 17px;border:1.5px solid rgba(10,61,42,.12);border-radius:10px;font-size:14px;font-family:var(--sans);color:var(--gdp);background:#fff;transition:all var(--tr);outline:none;-webkit-appearance:none}
+.fsl{background-image:url("data:image/svg+xml,%3Csvg width='12' height='7' viewBox='0 0 12 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230A3D2A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer}
+.fi:focus,.fsl:focus,.fta:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,23,.12)}
+.fi::placeholder,.fta::placeholder{color:rgba(10,61,42,.3)}
+.fta{resize:vertical;min-height:120px;line-height:1.6}
+.fck{display:flex;align-items:flex-start;gap:11px;margin-top:10px}
+.fck input{width:17px;height:17px;border:1.5px solid rgba(10,61,42,.2);border-radius:4px;cursor:pointer;flex-shrink:0;accent-color:var(--gold);margin-top:2px}
+.fck label{font-size:12px;color:rgba(10,61,42,.6);line-height:1.55}
+.fck label a{color:var(--gold);text-decoration:underline}
+.fsub{width:100%;padding:15px 32px;background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp);border:none;border-radius:50px;font-size:14px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;box-shadow:0 6px 24px rgba(212,160,23,.3)}
+.fsub:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(212,160,23,.45)}
+.fsub svg{transition:transform var(--tr)}
+.fsub:hover svg{transform:translateX(4px)}
+.fsucc{display:none;text-align:center;padding:44px 28px;background:rgba(10,61,42,.04);border-radius:16px;border:1px solid rgba(10,61,42,.1)}
+.fsucc.show{display:block;animation:fadeUp .4s ease}
+.fsucc-ic{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--golds));display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.fsucc h3{font-family:var(--serif);font-size:26px;color:var(--gdp);margin-bottom:8px}
+.fsucc p{font-size:13px;color:rgba(10,61,42,.6);line-height:1.7}
+
+/* ── PROFILE COL ── */
+.pcol{display:flex;flex-direction:column;gap:20px;position:sticky;top:calc(var(--nh) + 20px)}
+.pcard{border-radius:20px;overflow:hidden;background:var(--gdp);box-shadow:0 24px 64px rgba(7,43,30,.25);position:relative;transition:box-shadow .4s ease}
+.pcard:hover{box-shadow:0 32px 80px rgba(7,43,30,.4),0 0 0 2px rgba(212,160,23,.4)}
+.pimgw{position:relative;overflow:hidden;aspect-ratio:2/3;min-height:480px;max-height:700px;width:100%}
+.pimg{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .8s cubic-bezier(.25,.46,.45,.94),filter .8s ease;display:block}
+.pcard:hover .pimg{transform:scale(1.06);filter:brightness(1.06) contrast(1.03)}
+/* hover handled in pimg block above */
+.pgrad{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,43,30,.98) 0%,rgba(7,43,30,.35) 45%,transparent 75%);pointer-events:none}
+/* star cover — blends with dark desk at bottom-right */
+.pimgw::after{content:'';position:absolute;bottom:0;right:0;width:120px;height:80px;background:radial-gradient(ellipse at bottom right,#1a0f08 10%,transparent 70%);z-index:2;pointer-events:none}
+.pbadge{position:absolute;top:18px;left:18px;z-index:3;background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:50px;box-shadow:0 4px 16px rgba(212,160,23,.4);opacity:0;transform:translateY(-10px);transition:all .4s ease}
+.pcard:hover .pbadge{opacity:1;transform:translateY(0)}
+.pinfo{padding:26px 26px 30px;position:relative}
+.pinfo::before{content:'';position:absolute;top:0;left:26px;right:26px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.pname{font-family:var(--serif);font-size:26px;font-weight:700;color:#fff;margin-bottom:4px}
+.ptitle{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--golds);margin-bottom:14px;font-weight:500}
+.pbio{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;font-weight:300;margin-bottom:20px}
+.pacts{display:flex;gap:10px;flex-wrap:wrap}
+.pab{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:50px;font-size:12px;font-weight:600;transition:all var(--tr);letter-spacing:.3px}
+.pab-g{background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp)}
+.pab-g:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,160,23,.4)}
+.pab-o{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.12)}
+.pab-o:hover{background:rgba(255,255,255,.14);color:#fff}
+
+/* ── BOOKING CARD (below Samuel) ── */
+.meetcard{background:var(--gdp);border-radius:20px;padding:28px;box-shadow:0 16px 48px rgba(7,43,30,.2)}
+.mc-ey{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--golds);font-weight:600;margin-bottom:10px}
+.mc-t{font-family:var(--serif);font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
+.mc-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:22px}
+
+/* Meeting type cards */
+.mtypes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.mtype{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;border:1.5px solid rgba(255,255,255,.12);border-radius:12px;cursor:pointer;transition:all .3s;text-align:center;position:relative}
+.mtype input[type=radio]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.mtype-ic{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;margin-bottom:2px;transition:all .3s}
+.mtype-lbl{font-size:12px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.3px;transition:color .3s;line-height:1.3}
+.mtype-det{font-size:10px;color:rgba(255,255,255,.3);line-height:1.3;transition:color .3s}
+.mtype:hover,.mtype.sel{border-color:var(--gold);background:rgba(212,160,23,.08)}
+.mtype:hover .mtype-ic,.mtype.sel .mtype-ic{background:rgba(212,160,23,.2)}
+.mtype:hover .mtype-lbl,.mtype.sel .mtype-lbl{color:var(--golds)}
+.mtype:hover .mtype-det,.mtype.sel .mtype-det{color:rgba(212,160,23,.6)}
+
+/* Booking form fields */
+.mfi,.mfsl,.mfta{width:100%;padding:12px 15px;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;font-size:13px;font-family:var(--sans);color:#fff;background:rgba(255,255,255,.05);transition:all var(--tr);outline:none;-webkit-appearance:none;margin-bottom:10px}
+.mfsl{background-image:url("data:image/svg+xml,%3Csvg width='12' height='7' viewBox='0 0 12 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E5C46A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer}
+.mfsl option{background:#0A3D2A;color:#fff}
+.mfi:focus,.mfsl:focus,.mfta:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,23,.15)}
+.mfi::placeholder,.mfta::placeholder{color:rgba(255,255,255,.25)}
+.mfi[type=date]{color-scheme:dark}
+.mfrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mfrow .mfi{margin-bottom:0}
+.mfta{resize:vertical;min-height:80px;line-height:1.5;margin-bottom:0}
+.mfl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:5px;display:block}
+.mfg{margin-bottom:10px}
+.mbsub{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp);border:none;border-radius:50px;font-size:14px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;box-shadow:0 6px 24px rgba(212,160,23,.3)}
+.mbsub:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(212,160,23,.5)}
+.mbsub svg{transition:transform var(--tr)}
+.mbsub:hover svg{transform:translateX(4px)}
+
+/* ── JAW-DROPPING SUCCESS OVERLAY ── */
+#sov{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;overflow:hidden}
+#sov.on{opacity:1;visibility:visible}
+.sov-bg{position:absolute;inset:0;background:linear-gradient(135deg,#041a11 0%,var(--gdp) 40%,var(--gd) 100%)}
+.sov-in{position:relative;z-index:2;text-align:center;padding:40px 24px;max-width:520px;width:90%}
+.sov-ring{margin:0 auto 28px;display:block}
+.sov-ring-circle{fill:none;stroke:rgba(212,160,23,.2);stroke-width:3}
+.sov-ring-arc{fill:none;stroke:url(#goldGrad);stroke-width:3;stroke-linecap:round;stroke-dasharray:314;stroke-dashoffset:314;transition:none}
+.sov-ring-arc.go{animation:drawRing .9s cubic-bezier(.4,0,.2,1) .2s forwards}
+.sov-check{fill:none;stroke:var(--golds);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
+.sov-check.go{animation:drawCheck .5s ease .95s forwards}
+.sov-title{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:700;margin-bottom:10px;background:linear-gradient(90deg,#D4A017,#fff,#E5C46A,#D4A017);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 2.5s linear .8s infinite;opacity:0;transition:opacity .5s ease .6s}
+.sov-title.go{opacity:1}
+.sov-sub{font-size:15px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:28px;opacity:0;transition:opacity .6s ease 1.1s}
+.sov-sub.go{opacity:1}
+.sov-card{background:rgba(255,255,255,.06);border:1px solid rgba(212,160,23,.25);border-radius:16px;padding:22px 28px;margin-bottom:28px;opacity:0;transform:translateY(30px);transition:opacity .6s ease 1.4s,transform .6s ease 1.4s}
+.sov-card.go{opacity:1;transform:translateY(0)}
+.sov-card-row{display:flex;align-items:center;gap:14px;font-size:14px;color:rgba(255,255,255,.75);margin-bottom:12px}
+.sov-card-row:last-child{margin-bottom:0}
+.sov-card-ic{width:32px;height:32px;border-radius:50%;background:rgba(212,160,23,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold)}
+.sov-ref{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:20px;opacity:0;transition:opacity .5s ease 1.7s}
+.sov-ref.go{opacity:1}
+.sov-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:50px;background:linear-gradient(135deg,var(--gold),var(--golds));color:var(--gdp);font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all var(--tr);opacity:0;transition:opacity .5s ease 2s,transform var(--tr),box-shadow var(--tr);box-shadow:0 6px 24px rgba(212,160,23,.3)}
+.sov-btn.go{opacity:1}
+.sov-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(212,160,23,.5)}
+.sov-part{position:absolute;border-radius:50%;background:var(--gold);animation:pFloat var(--dur) ease-out var(--del) both;pointer-events:none;z-index:1}
+
+/* ── QUICK CONTACT ── */
+.qcont{background:var(--cream);border-radius:16px;padding:22px 26px}
+.qc-ey{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px}
+.qc-row{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(10,61,42,.7);margin-bottom:11px;line-height:1.4}
+.qc-row:last-child{margin-bottom:0}
+.qc-ic{width:32px;height:32px;border-radius:50%;background:rgba(10,61,42,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gd)}
+.qc-row a{color:var(--gd);font-weight:500;transition:color var(--tr)}
+.qc-row a:hover{color:var(--gold)}
+
+/* ── FOOTER ── */
+#ftr{background:var(--gdp);padding:60px 5% 0;color:rgba(255,255,255,.7)}
+.fgrid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr 1.5fr;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.07);align-items:start;width:100%;overflow:visible}
+.fgrid>*{min-width:0}
+.fmiss{font-size:13px;line-height:1.65;color:rgba(255,255,255,.55);margin:12px 0 14px}
+.fsocs{display:flex;gap:10px}
+.fsoc{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all var(--tr)}
+.fsoc:hover{border-color:var(--gold);color:var(--gold)}
+.fcol h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(212,160,23,.2)}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:13px;color:rgba(255,255,255,.55);transition:color var(--tr)}
+.fcol a:hover{color:var(--golds)}
+.fci{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:10px;line-height:1.5}
+.fci svg{color:var(--gold);flex-shrink:0;margin-top:2px}
+.fci a{color:inherit;transition:color var(--tr)}
+.fci a:hover{color:var(--golds)}
+.nlform{display:flex;overflow:hidden;border-radius:50px;border:1px solid rgba(255,255,255,.12);margin-top:8px}
+.nlform input{flex:1;padding:10px 14px;background:rgba(255,255,255,.05);border:none;outline:none;color:#fff;font-size:12px;font-family:var(--sans)}
+.nlform input::placeholder{color:rgba(255,255,255,.3)}
+.nlform button{padding:10px 14px;background:var(--gold);color:var(--gdp);border:none;cursor:pointer;transition:background var(--tr)}
+.nlform button:hover{background:var(--golds)}
+.fbot{max-width:1200px;margin:0 auto;padding:18px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fleg{display:flex;gap:20px;flex-wrap:wrap}
+.fleg a{font-size:12px;color:rgba(255,255,255,.35);transition:color var(--tr)}
+.fleg a:hover{color:var(--golds)}
+.fbld{font-size:12px;color:rgba(255,255,255,.35);width:100%;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)}
+.fbld a{color:rgba(255,255,255,.5);text-decoration:none;transition:color var(--tr)}
+.fbld a:hover{color:var(--golds)}
+.fcopy{font-size:12px;color:rgba(255,255,255,.35)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .cgrid{grid-template-columns:1fr;gap:44px}
+  .pcol{position:static}
+  .pimgw{min-height:380px;max-height:560px}
+  .mtypes{grid-template-columns:repeat(3,1fr)}
+  .fgrid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+  .ni{height:56px;padding:0 6px 0 12px!important;overflow:visible!important}
+  /* logo — mobile sizing */
+  .logo-ring-wrap{width:40px!important;height:40px!important;overflow:visible!important}
+  .logo-img{width:40px!important;height:40px!important}
+  .logo-name{font-size:17px!important;letter-spacing:2px!important}
+  .logo-tag{font-size:7px!important;letter-spacing:1.5px!important}
+  .cmain{padding:52px 5%}
+  .cher{padding:calc(var(--nh)+36px) 5% 44px}
+  .cht{font-size:clamp(36px,7vw,54px)}
+  .chst{gap:18px}
+  .frow{grid-template-columns:1fr}
+  .mfrow{grid-template-columns:1fr}
+  .mfrow .mfi{margin-bottom:0}
+  .fgrid{grid-template-columns:1fr;gap:22px}
+  .fbot{flex-direction:column;align-items:flex-start;gap:8px}
+  .fleg{flex-wrap:wrap;gap:12px}
+}
+@media(max-width:480px){
+  .cher{padding:calc(var(--nh)+28px) 20px 36px}
+  .cht{font-size:32px}
+  .chst{flex-direction:column;gap:10px}
+  .chsi{font-size:12px}
+  .cmain{padding:40px 20px}
+  .ftabs{flex-direction:column;border-radius:12px}
+  .ftb{border-radius:10px;padding:13px}
+  .pinfo{padding:20px 20px 24px}
+  .pname{font-size:22px}
+  .meetcard{padding:22px 18px}
+  .mtypes{grid-template-columns:repeat(3,1fr);gap:7px}
+  .mtype{padding:11px 5px}
+  .mtype-det{display:none}
+  .qcont{padding:18px}
+  #ftr{padding:36px 20px 0}
+  .nlform{flex-direction:column;border-radius:10px}
+  .nlform input{border-radius:10px 10px 0 0;padding:12px 14px}
+  .nlform button{border-radius:0 0 10px 10px;padding:12px;justify-content:center;display:flex;align-items:center;gap:6px}
+}
+</style>
+<link rel="stylesheet" href="global.css"/>
+</head>
+<body>
+
+<div id="spb" aria-hidden="true"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="logo-wrap" aria-label="WAJIBU Home">
+      <div class="logo-ring-wrap">
+        <div class="logo-glow"></div>
+        <div class="logo-ring"></div>
+        <img src="images/wajibu_logo.jpeg" alt="WAJIBU" class="logo-img" width="50" height="50"/>
+      </div>
+      <div>
+        <div class="logo-name">WAJIBU</div>
+        <div class="logo-tag">Environmental &bull; Social &bull; Governance</div>
+      </div>
+    </a>
+    <div class="goo-nav-wrap" id="gooNavWrap">
+      <div class="goo-layer" aria-hidden="true"><div class="goo-blob" id="gooBlob"></div></div>
+      <ul class="nav-menu" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="insights.html">Insights</a></li>
+        <li><a href="impact.html">Impact</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </div>
+    <a href="contact.html" class="nav-cta">
+      Book Consultation
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="nav-burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false">
+      <div class="burger-box">
+        <span class="burger-line bl-1"></span>
+        <span class="burger-line bl-2"></span>
+        <span class="burger-line bl-3"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="md-backdrop" id="mdBackdrop"></div>
+  <div class="md-panel" id="mdPanel">
+    <div class="md-header">
+      <a href="index.html" class="md-logo-ring" aria-label="WAJIBU Home">
+        <img src="images/wajibu_logo.jpeg" alt="WAJIBU" width="40" height="40" style="width:40px;height:40px;border-radius:50%;object-fit:cover;display:block"/>
+      </a>
+      <button class="md-close" id="mdClose" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <a href="index.html" class="md-item md-link" style="--i:0">Home <svg class="md-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="about.html" class="md-item md-link" style="--i:1">About <svg class="md-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="services.html" class="md-item md-link" style="--i:2">Services <svg class="md-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="insights.html" class="md-item md-link" style="--i:3">Insights <svg class="md-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="impact.html" class="md-item md-link" style="--i:4">Impact <svg class="md-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="contact.html" class="md-item md-link active" aria-current="page" style="--i:5">Contact <svg class="md-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </nav>
+    <div class="md-orb" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="cher" aria-label="Contact WAJIBU">
+  <div class="chin rv">
+    <div class="chey">Your Next Move</div>
+    <h1 class="cht">Let's Talk.</h1>
+    <p class="chs">Every engagement begins with an honest conversation. Tell us where you stand and we will show you exactly where you need to be — and how to get there.</p>
+    <div class="chst">
+      <div class="chsi"><span class="chsd"></span>Response within 24 hours</div>
+      <div class="chsi"><span class="chsd"></span>London EC2A — in person or remote</div>
+      <div class="chsi"><span class="chsd"></span>All consultations are confidential</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTACT SECTION -->
+<section class="cmain" aria-label="Contact forms">
+  <div class="cgrid">
+
+    <!-- LEFT: FORMS -->
+    <div class="rv">
+      <div class="fhey">Reach Out</div>
+      <h2 class="fht">How Can We Help?</h2>
+      <div class="ftabs" role="tablist">
+        <button class="ftb active" role="tab" aria-selected="true" aria-controls="pEnq" id="tEnq">General Enquiry</button>
+        <button class="ftb" role="tab" aria-selected="false" aria-controls="pBook" id="tBook">Book a Consultation</button>
+      </div>
+
+      <!-- General Enquiry Form -->
+      <div class="fpanel active" id="pEnq" role="tabpanel" aria-labelledby="tEnq">
+        <form id="enqForm" novalidate>
+          <input type="hidden" id="enqKey" name="access_key"/>
+          <input type="hidden" name="subject" value="General Enquiry — WAJIBU"/>
+          <div class="frow">
+            <div class="fg"><label class="fl" for="e-fn">First Name</label><input class="fi" type="text" id="e-fn" name="first_name" placeholder="First name" required/></div>
+            <div class="fg"><label class="fl" for="e-ln">Last Name</label><input class="fi" type="text" id="e-ln" name="last_name" placeholder="Last name" required/></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl" for="e-em">Email</label><input class="fi" type="email" id="e-em" name="email" placeholder="your@email.com" required/></div>
+            <div class="fg"><label class="fl" for="e-co">Organisation</label><input class="fi" type="text" id="e-co" name="company" placeholder="Your organisation"/></div>
+          </div>
+          <div class="fg full" style="margin-bottom:14px">
+            <label class="fl" for="e-sv">Area of Interest</label>
+            <select class="fsl" id="e-sv" name="service">
+              <option value="" disabled selected>Select a service area</option>
+              <option>ESG Compliance — FCA Consumer Duty</option>
+              <option>CSRD Readiness</option>
+              <option>Anti-Greenwashing Compliance</option>
+              <option>Section 166 Preparation</option>
+              <option>Board ESG Reporting</option>
+              <option>General Advisory</option>
+            </select>
+          </div>
+          <div class="fg full" style="margin-bottom:0">
+            <label class="fl" for="e-mg">Message</label>
+            <textarea class="fta" id="e-mg" name="message" placeholder="Describe your compliance challenge or enquiry..." required></textarea>
+          </div>
+          <div class="fck">
+            <input type="checkbox" id="e-ck" name="consent" required/>
+            <label for="e-ck">I agree to WAJIBU processing my data in accordance with the <a href="privacy.html">Privacy Policy</a>.</label>
+          </div>
+          <button class="fsub" type="submit">
+            Send Enquiry
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <div class="fsucc" id="enqSucc">
+          <div class="fsucc-ic"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13l6 6 12-12" stroke="#072B1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Enquiry Received</h3>
+          <p>Thank you. We will respond within 24 hours on business days. For urgent matters, call us directly on +44 7369 252639.</p>
+        </div>
+      </div>
+
+      <!-- Book Consultation Form -->
+      <div class="fpanel" id="pBook" role="tabpanel" aria-labelledby="tBook">
+        <form id="bookForm" novalidate>
+          <input type="hidden" id="bookKey" name="access_key"/>
+          <input type="hidden" name="subject" value="Consultation Booking — WAJIBU"/>
+          <div class="frow">
+            <div class="fg"><label class="fl" for="b-fn">First Name</label><input class="fi" type="text" id="b-fn" name="first_name" placeholder="First name" required/></div>
+            <div class="fg"><label class="fl" for="b-ln">Last Name</label><input class="fi" type="text" id="b-ln" name="last_name" placeholder="Last name" required/></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl" for="b-em">Email</label><input class="fi" type="email" id="b-em" name="email" placeholder="your@email.com" required/></div>
+            <div class="fg"><label class="fl" for="b-ph">Phone</label><input class="fi" type="tel" id="b-ph" name="phone" placeholder="+44 ..."/></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl" for="b-co">Organisation</label><input class="fi" type="text" id="b-co" name="company" placeholder="Your organisation" required/></div>
+            <div class="fg"><label class="fl" for="b-ro">Your Role</label><input class="fi" type="text" id="b-ro" name="role" placeholder="e.g. CFO, Head of Compliance"/></div>
+          </div>
+          <div class="fg full" style="margin-bottom:14px">
+            <label class="fl" for="b-ty">Consultation Type</label>
+            <select class="fsl" id="b-ty" name="type" required>
+              <option value="" disabled selected>Select consultation type</option>
+              <option>Initial ESG Compliance Review (60 min)</option>
+              <option>CSRD Readiness Assessment (90 min)</option>
+              <option>FCA Consumer Duty Gap Analysis</option>
+              <option>Board ESG Briefing</option>
+              <option>Section 166 Preparation Session</option>
+              <option>Bespoke Advisory</option>
+            </select>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl" for="b-dt">Preferred Date</label><input class="fi" type="date" id="b-dt" name="preferred_date"/></div>
+            <div class="fg"><label class="fl" for="b-fm">Format</label>
+              <select class="fsl" id="b-fm" name="format">
+                <option value="" disabled selected>In person or remote?</option>
+                <option>In person — London EC2A</option>
+                <option>Video call (Teams or Zoom)</option>
+                <option>No preference</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg full" style="margin-bottom:0">
+            <label class="fl" for="b-cx">Brief Context</label>
+            <textarea class="fta" id="b-cx" name="context" placeholder="Briefly describe your compliance situation so we can prepare..."></textarea>
+          </div>
+          <div class="fck">
+            <input type="checkbox" id="b-ck" name="consent" required/>
+            <label for="b-ck">I agree to WAJIBU processing my data in accordance with the <a href="privacy.html">Privacy Policy</a>.</label>
+          </div>
+          <button class="fsub" type="submit">
+            Book Consultation
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <div class="fsucc" id="bookSucc">
+          <div class="fsucc-ic"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13l6 6 12-12" stroke="#072B1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Booking Request Sent</h3>
+          <p>Your consultation request has been received. We will confirm your booking and send calendar details within one business day.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: PROFILE + BOOKING -->
+    <div class="pcol">
+
+      <!-- Samuel Orie Profile Card -->
+      <div class="pcard rv" style="transition-delay:.12s">
+        <div class="pimgw">
+          <img src="images/samuel the founder.jpeg" alt="Samuel Orie, CEO and Founder of WAJIBU" class="pimg" loading="lazy" decoding="async"/>
+          <div class="pgrad"></div>
+          <div class="pbadge">Founder &amp; CEO</div>
+        </div>
+        <div class="pinfo">
+          <h3 class="pname">Samuel Orie</h3>
+          <div class="ptitle">FOUNDER AND CEO </div>
+          <div class="pacts">
+            <a href="https://mail.google.com/mail/?view=cm&to=Admin1@wajibu.uk" target="_blank" rel="noopener noreferrer" class="pab pab-g">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 6l7 4 7-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Email Samuel
+            </a>
+            <a href="tel:+447369252639" class="pab pab-o">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3h3l1 3-1.5 1.5A8 8 0 009.5 10l1.5-1.5 3 1v3a1 1 0 01-1 1A13 13 0 012 2a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              Call Direct
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK CONTACT -->
+      <div class="qcont rv" style="transition-delay:.2s">
+        <div class="qc-ey">Office</div>
+        <div class="qc-row"><div class="qc-ic"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2C5.8 2 4 3.8 4 6c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4z" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.3"/></svg></div>66 Paul Street, London EC2A 4NA</div>
+        <div class="qc-row"><div class="qc-ic"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 6l7 4 7-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><a href="https://mail.google.com/mail/?view=cm&to=Admin1@wajibu.uk" target="_blank" rel="noopener noreferrer">Admin1@wajibu.uk</a></div>
+        <div class="qc-row"><div class="qc-ic"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 3h3l1 3-1.5 1.5A8 8 0 009.5 10l1.5-1.5 3 1v3a1 1 0 01-1 1A13 13 0 012 2a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div><a href="tel:+447369252639">+44 7369 252639</a></div>
+        <div class="qc-row"><div class="qc-ic"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>Monday to Friday, 9:00am to 6:00pm GMT</div>
+      </div>
+
+      <!-- BOOKING SECTION -->
+      <div class="meetcard rv" id="meetSection" style="transition-delay:.28s">
+        <div class="mc-ey">Schedule Time</div>
+        <h3 class="mc-t">Book a Meeting</h3>
+        <p class="mc-sub">Choose the format that works best for you. All sessions are confidential.</p>
+
+        <!-- Meeting type selector -->
+        <div class="mtypes" role="group" aria-label="Meeting format">
+          <label class="mtype" id="mt-vc">
+            <input type="radio" name="meet_type_sel" value="Video Call" checked/>
+            <div class="mtype-ic">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="13" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M14 8l5-3v10l-5-3V8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="mtype-lbl">Video Call</span>
+            <span class="mtype-det">Teams or Zoom</span>
+          </label>
+          <label class="mtype" id="mt-ph">
+            <input type="radio" name="meet_type_sel" value="Phone Call"/>
+            <div class="mtype-ic">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4 4h4l1.5 3.5-2 2A10 10 0 0012.5 14l2-2L18 13.5V17a1.5 1.5 0 01-1.5 1.5C7.5 18.5 1.5 12.5 1.5 4 1.5 3.2 2.2 2.5 3 2.5H4z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <span class="mtype-lbl">Phone Call</span>
+            <span class="mtype-det">30 to 45 mins</span>
+          </label>
+          <label class="mtype" id="mt-ip">
+            <input type="radio" name="meet_type_sel" value="In Person"/>
+            <div class="mtype-ic">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="2" y="7" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 7V5a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 12v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <span class="mtype-lbl">In Person</span>
+            <span class="mtype-det">Paul Street, EC2A</span>
+          </label>
+        </div>
+
+        <!-- Booking form -->
+        <form id="meetForm" novalidate>
+          <input type="hidden" id="meetKey" name="access_key"/>
+          <input type="hidden" name="subject" value="Meeting Request — WAJIBU"/>
+          <input type="hidden" id="meetTypeHidden" name="meeting_type" value="Video Call"/>
+
+          <div class="mfrow" style="margin-bottom:10px">
+            <input class="mfi" type="text" name="first_name" placeholder="First name" required/>
+            <input class="mfi" type="text" name="last_name" placeholder="Last name" required/>
+          </div>
+          <input class="mfi" type="email" name="email" placeholder="Email address" required/>
+          <input class="mfi" type="text" name="company" placeholder="Organisation (optional)"/>
+          <div class="mfrow">
+            <div class="mfg">
+              <label class="mfl" for="m-dt">Preferred Date</label>
+              <input class="mfi" type="date" id="m-dt" name="preferred_date" style="margin-bottom:0"/>
+            </div>
+            <div class="mfg">
+              <label class="mfl" for="m-tp">Preferred Time</label>
+              <select class="mfsl" id="m-tp" name="preferred_time">
+                <option value="" disabled selected>Select slot</option>
+                <option>Morning (9am to 12pm)</option>
+                <option>Afternoon (12pm to 4pm)</option>
+                <option>Late Afternoon (4pm to 6pm)</option>
+                <option>Flexible</option>
+              </select>
+            </div>
+          </div>
+          <div class="mfg" style="margin-top:0">
+            <label class="mfl" for="m-nt">Brief Note <span style="opacity:.5;font-weight:400">(optional)</span></label>
+            <textarea class="mfta" id="m-nt" name="note" placeholder="What would you like to discuss?" style="margin-bottom:0"></textarea>
+          </div>
+          <button class="mbsub" type="submit">
+            Request Meeting
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JAW-DROPPING SUCCESS OVERLAY -->
+<div id="sov" role="dialog" aria-modal="true" aria-label="Meeting request confirmed" aria-live="assertive">
+  <div class="sov-bg"></div>
+  <div class="sov-in">
+    <svg class="sov-ring" width="130" height="130" viewBox="0 0 130 130">
+      <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#D4A017"/>
+          <stop offset="100%" stop-color="#E5C46A"/>
+        </linearGradient>
+      </defs>
+      <circle class="sov-ring-circle" cx="65" cy="65" r="50"/>
+      <circle class="sov-ring-arc" cx="65" cy="65" r="50" transform="rotate(-90 65 65)"/>
+      <path class="sov-check" d="M43 65l14 14 28-28"/>
+    </svg>
+    <h2 class="sov-title" id="sovTitle">Meeting Confirmed</h2>
+    <p class="sov-sub" id="sovSub">Your request has been sent directly to Samuel Orie. We will reach out within 24 hours to confirm your slot and share the joining details.</p>
+    <div class="sov-card" id="sovCard">
+      <div class="sov-card-row">
+        <div class="sov-card-ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <span id="sovType">Video Call</span>
+      </div>
+      <div class="sov-card-row">
+        <div class="sov-card-ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 6l7 4 7-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <span>Confirmation email on its way</span>
+      </div>
+      <div class="sov-card-row">
+        <div class="sov-card-ic">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <span>Response within 24 business hours</span>
+      </div>
+    </div>
+    <p class="sov-ref" id="sovRef"></p>
+    <button class="sov-btn" id="sovClose">
+      Back to Site
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="ftr" role="contentinfo">
+  <div class="fgrid">
+    <div style="overflow:visible">
+      <a href="index.html" class="logo-wrap" style="margin-bottom:14px">
+        <div class="logo-ring-wrap">
+          <div class="logo-glow"></div>
+          <div class="logo-ring"></div>
+          <img src="images/wajibu_logo.jpeg" alt="WAJIBU" class="logo-img" width="50" height="50"/>
+        </div>
+        <div>
+          <div class="logo-name" style="font-size:19px">WAJIBU</div>
+          <div class="logo-tag">Environmental &bull; Social &bull; Governance</div>
+        </div>
+      </a>
+      <p class="fmiss">ESG &amp; Social Responsibility Compliance &middot; FCA &middot; CSRD &middot; Consumer Duty</p>
+      <div class="fsocs">
+        <a href="#" class="fsoc" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 7v4M5 5v.5M8 11V8.5c0-1 .8-1.5 1.5-1.5S11 7.7 11 8.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        <a href="#" class="fsoc" aria-label="X"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 3h3l3 4.5L11 3h3L9.5 8.5 14 13h-3L8 8.8 5 13H2l4.5-5.5L2 3z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg></a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="insights.html">Insights</a></li>
+        <li><a href="impact.html">Impact</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html#diagnose">Diagnose</a></li>
+        <li><a href="services.html#architect">Architect</a></li>
+        <li><a href="services.html#evidence">Evidence</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contact Us</h4>
+      <div class="fci"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2C5.8 2 4 3.8 4 6c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4z" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.3"/></svg>66 Paul Street, London EC2A 4NA</div>
+      <div class="fci"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M1 6l7 4 7-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><a href="https://mail.google.com/mail/?view=cm&to=Admin1@wajibu.uk" target="_blank" rel="noopener noreferrer">Admin1@wajibu.uk</a></div>
+      <div class="fci"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3h3l1 3-1.5 1.5A8 8 0 009.5 10l1.5-1.5 3 1v3a1 1 0 01-1 1A13 13 0 012 2a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><a href="tel:+447369252639">+44 7369 252639</a></div>
+      <p style="font-size:12px;color:rgba(255,255,255,.4);margin:10px 0 8px">Stay updated with ESG insights.</p>
+      <form class="nlform" id="nlForm" novalidate>
+        <input type="email" placeholder="Your email address" aria-label="Newsletter email" required/>
+        <button type="submit" aria-label="Subscribe"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+    </div>
+  </div>
+  <div class="fbot">
+    <p class="fcopy">&copy; 2026 WAJIBU. All rights reserved.</p>
+    <nav class="fleg" aria-label="Legal links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="#">Cookies</a>
+    </nav>
+    <p class="fbld">Built by <a href="https://wa.me/254740840018" target="_blank" rel="noopener noreferrer">ELIJAH JAMES (+254 740840018)</a></p>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="btt" aria-label="Back to top" style="position:fixed;bottom:24px;right:24px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#D4A017,#E5C46A);color:#072B1E;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:900;opacity:0;visibility:hidden;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 20px rgba(212,160,23,.4);transform:translateY(12px)">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 15V5M5 10l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+'use strict';
+
+/* ── ACCESS KEY (assembled at runtime) ── */
+(function(){
+  var p=['a8cb','ade8','-','e327','-4107','-9cbc','-5049a8e5','6d72'];
+  var k=p.join('');
+  ['enqKey','bookKey','meetKey'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.value=k;
+  });
+})();
+
+/* ── SCROLL PROGRESS + BTT ── */
+var spb=document.getElementById('spb');
+var btt=document.getElementById('btt');
+var navEl=document.getElementById('navbar');
+window.addEventListener('scroll',function(){
+  var d=document.documentElement;
+  var pct=window.scrollY/(d.scrollHeight-window.innerHeight)*100;
+  if(spb)spb.style.width=pct+'%';
+  if(navEl)navEl.classList.toggle('scrolled',window.scrollY>80);
+  if(btt){
+    var show=window.scrollY>400;
+    btt.style.opacity=show?'1':'0';
+    btt.style.visibility=show?'visible':'hidden';
+    btt.style.transform=show?'translateY(0)':'translateY(12px)';
+  }
+},{passive:true});
+if(btt)btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+/* ── SCROLL REVEAL ── */
+var rvObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');rvObs.unobserve(e.target);}});
+},{threshold:.1});
+document.querySelectorAll('.rv').forEach(function(el){rvObs.observe(el);});
+
+/* ── GOOEY BLOB ── */
+(function(){
+  var wrap=document.getElementById('gooNavWrap');
+  var blob=document.getElementById('gooBlob');
+  if(!wrap||!blob)return;
+  wrap.querySelectorAll('.nav-menu a').forEach(function(link){
+    link.addEventListener('mouseenter',function(){
+      var wr=wrap.getBoundingClientRect();
+      var lr=link.getBoundingClientRect();
+      blob.style.left=(lr.left-wr.left)+'px';
+      blob.style.width=lr.width+'px';
+    });
+  });
+})();
+
+/* ── MOBILE DRAWER ── */
+(function(){
+  var btn=document.getElementById('burgerBtn');
+  var drawer=document.getElementById('mobileDrawer');
+  var bk=document.getElementById('mdBackdrop');
+  var cl=document.getElementById('mdClose');
+  if(!btn||!drawer)return;
+  function open(){drawer.classList.add('open');btn.classList.add('open');btn.setAttribute('aria-expanded','true');drawer.setAttribute('aria-hidden','false');document.body.classList.add('mo');}
+  function close(){drawer.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');drawer.setAttribute('aria-hidden','true');document.body.classList.remove('mo');}
+  btn.addEventListener('click',function(){drawer.classList.contains('open')?close():open();});
+  if(cl)cl.addEventListener('click',close);
+  if(bk)bk.addEventListener('click',close);
+  drawer.querySelectorAll('.md-link').forEach(function(a){a.addEventListener('click',close);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+
+/* ── FORM TABS ── */
+var tabBtns=document.querySelectorAll('.ftb');
+var panels=document.querySelectorAll('.fpanel');
+tabBtns.forEach(function(btn,i){
+  btn.addEventListener('click',function(){
+    tabBtns.forEach(function(b){b.classList.remove('active');b.setAttribute('aria-selected','false');});
+    panels.forEach(function(p){p.classList.remove('active');});
+    btn.classList.add('active');btn.setAttribute('aria-selected','true');panels[i].classList.add('active');
+  });
+});
+
+/* ── MEETING TYPE SELECTOR ── */
+var mTypeCards=document.querySelectorAll('.mtype');
+var mTypeHidden=document.getElementById('meetTypeHidden');
+function updateMeetType(){
+  mTypeCards.forEach(function(card){
+    var radio=card.querySelector('input[type=radio]');
+    if(radio.checked){card.classList.add('sel');if(mTypeHidden)mTypeHidden.value=radio.value;}
+    else card.classList.remove('sel');
+  });
+}
+// Set initial
+if(mTypeCards.length){mTypeCards[0].classList.add('sel');}
+mTypeCards.forEach(function(card){
+  card.addEventListener('click',function(){
+    mTypeCards.forEach(function(c){c.querySelector('input').checked=false;c.classList.remove('sel');});
+    card.querySelector('input').checked=true;
+    card.classList.add('sel');
+    if(mTypeHidden)mTypeHidden.value=card.querySelector('input').value;
+  });
+});
+
+/* ── SUCCESS OVERLAY ── */
+var sov=document.getElementById('sov');
+function spawnParticles(){
+  var existing=document.querySelectorAll('.sov-part');
+  existing.forEach(function(p){p.remove();});
+  var colors=['#D4A017','#E5C46A','#fff','#f0c040','#c8860a'];
+  for(var i=0;i<40;i++){
+    var p=document.createElement('div');
+    p.className='sov-part';
+    var size=Math.random()*8+4;
+    var x=(Math.random()-0.5)*window.innerWidth*0.9;
+    var y=-(Math.random()*window.innerHeight*0.7+80);
+    var dur=(Math.random()*1.2+0.8)+'s';
+    var del=(Math.random()*0.6)+'s';
+    p.style.cssText='width:'+size+'px;height:'+size+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';left:50%;top:50%;margin-left:'+(x-size/2)+'px;margin-top:'+(y-size/2)+'px;--dur:'+dur+';--del:'+del+';--py:'+y+'px;--px:'+x+'px;';
+    sov.appendChild(p);
+  }
+}
+function showSuccess(meetType,refNum){
+  var arc=sov.querySelector('.sov-ring-arc');
+  var chk=sov.querySelector('.sov-check');
+  var title=document.getElementById('sovTitle');
+  var sub=document.getElementById('sovSub');
+  var card=document.getElementById('sovCard');
+  var ref=document.getElementById('sovRef');
+  var btn=document.getElementById('sovClose');
+  var typeEl=document.getElementById('sovType');
+  // Reset
+  [arc,chk].forEach(function(el){el.classList.remove('go');});
+  [title,sub,card,ref,btn].forEach(function(el){el.classList.remove('go');});
+  if(typeEl&&meetType)typeEl.textContent=meetType;
+  if(ref)ref.textContent='Reference: WBJ-'+refNum;
+  sov.classList.add('on');
+  document.body.style.overflow='hidden';
+  spawnParticles();
+  // Stagger animations
+  requestAnimationFrame(function(){
+    setTimeout(function(){arc.classList.add('go');},100);
+    setTimeout(function(){chk.classList.add('go');},200);
+    setTimeout(function(){title.classList.add('go');},600);
+    setTimeout(function(){sub.classList.add('go');},1100);
+    setTimeout(function(){card.classList.add('go');},1400);
+    setTimeout(function(){ref.classList.add('go');},1700);
+    setTimeout(function(){btn.classList.add('go');},2000);
+  });
+}
+document.getElementById('sovClose').addEventListener('click',function(){
+  sov.classList.remove('on');
+  document.body.style.overflow='';
+});
+
+/* ── WEB3FORMS SUBMIT ── */
+function handleForm(formId,succId,onSuccess){
+  var form=document.getElementById(formId);
+  var succ=document.getElementById(succId);
+  if(!form)return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var ck=form.querySelector('input[type=checkbox]');
+    if(ck&&!ck.checked){ck.closest('.fck').style.outline='2px solid #D4A017';return;}
+    var btn=form.querySelector('button[type=submit]');
+    var orig=btn.innerHTML;
+    btn.innerHTML='<svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="animation:spin .8s linear infinite"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28" stroke-dashoffset="10" stroke-linecap="round"/></svg> Sending...';
+    btn.disabled=true;
+    try{
+      var fd=new FormData(form);
+      var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});
+      var json=await res.json();
+      if(json.success){
+        if(onSuccess){onSuccess();}
+        else{form.style.display='none';if(succ)succ.classList.add('show');}
+      }else{throw new Error('fail');}
+    }catch(err){
+      btn.innerHTML=orig;btn.disabled=false;
+      btn.style.background='linear-gradient(135deg,#c73c3c,#e05555)';
+      setTimeout(function(){btn.style.background='';},2800);
+    }
+  });
+}
+
+handleForm('enqForm','enqSucc');
+handleForm('bookForm','bookSucc');
+handleForm('meetForm',null,function(){
+  var mt=document.getElementById('meetTypeHidden');
+  var ref=Math.floor(Math.random()*9000+1000);
+  document.getElementById('meetSection').style.opacity='0.4';
+  document.getElementById('meetSection').style.pointerEvents='none';
+  showSuccess(mt?mt.value:'Meeting',ref);
+  // Reset after close
+  document.getElementById('sovClose').addEventListener('click',function once(){
+    document.getElementById('meetSection').style.opacity='';
+    document.getElementById('meetSection').style.pointerEvents='';
+    document.getElementById('meetForm').reset();
+    updateMeetType();
+    document.getElementById('sovClose').removeEventListener('click',once);
+  },{once:true});
+});
+
+/* ── NEWSLETTER ── */
+document.getElementById('nlForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var inp=this.querySelector('input');
+  if(inp.value&&inp.checkValidity()){
+    var btn=this.querySelector('button');
+    btn.innerHTML='&#10003;';btn.style.background='#2d7a4f';
+    inp.value='';
+    setTimeout(function(){btn.innerHTML='<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';btn.style.background='';},2800);
+  }
+});
+
+/* ── COOKIE BANNER ── */
+(function(){
+  if(localStorage.getItem('wcb'))return;
+  var banner=document.createElement('div');
+  banner.style.cssText='position:fixed;bottom:-200px;left:0;right:0;z-index:9990;padding:0 20px 20px;transition:bottom .5s cubic-bezier(.16,1,.3,1);pointer-events:none';
+  banner.innerHTML='<div style="max-width:960px;margin:0 auto;background:#0d2a1e;border:1px solid rgba(212,160,23,.2);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 -8px 48px rgba(0,0,0,.3);flex-wrap:wrap"><div style="flex:1;font-size:13px;color:rgba(255,255,255,.6);line-height:1.55">We use essential cookies to make this site work. By continuing you accept our <a href="privacy.html" style="color:#D4A017;text-decoration:underline">Privacy Policy</a>.</div><div style="display:flex;gap:10px;flex-shrink:0"><button id="cbD" style="padding:9px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;background:none;font-family:inherit">Decline</button><button id="cbA" style="padding:9px 22px;border-radius:50px;background:linear-gradient(135deg,#D4A017,#E5C46A);color:#072B1E;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit">Accept</button></div></div>';
+  document.body.appendChild(banner);
+  setTimeout(function(){banner.style.bottom='0';banner.style.pointerEvents='all';},1200);
+  function hide(){banner.style.bottom='-200px';banner.style.pointerEvents='none';}
+  document.getElementById('cbA').addEventListener('click',function(){localStorage.setItem('wcb','1');hide();});
+  document.getElementById('cbD').addEventListener('click',function(){localStorage.setItem('wcb','0');hide();});
+})();
+</script>
+</body>
+</html>
