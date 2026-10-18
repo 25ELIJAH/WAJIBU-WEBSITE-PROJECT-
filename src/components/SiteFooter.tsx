@@ -41,7 +41,11 @@ const arrow = (
   </svg>
 );
 
-export default function SiteFooter() {
+const DEFAULT_MISSION =
+  "ESG & Social Responsibility Compliance · FCA · CSRD · Consumer Duty · Modern Slavery Act";
+
+/** `mission` lets a page keep its original one-line description. */
+export default function SiteFooter({ mission = DEFAULT_MISSION }: { mission?: string }) {
   const pathname = usePathname();
   const cur = (href: string) => (pathname === href ? ("page" as const) : undefined);
 
@@ -62,9 +66,7 @@ export default function SiteFooter() {
               <span className="sf-tag">Environmental &bull; Social &bull; Governance</span>
             </span>
           </Link>
-          <p className="sf-mission">
-            ESG &amp; Social Responsibility Compliance &middot; FCA &middot; CSRD &middot; Consumer Duty &middot; Modern Slavery Act
-          </p>
+          <p className="sf-mission">{mission}</p>
           <div className="sf-socials">
             <a href={MAIL_HREF} target="_blank" rel="noopener noreferrer" className="sf-social" aria-label="Email WAJIBU">
               <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -217,7 +219,9 @@ html{scroll-padding-top:120px}
   .sf-grid{grid-template-columns:1fr 1fr;gap:32px 20px;padding-bottom:32px}
   .sf-col:last-child{grid-column:1/-1}
   .sf-col li a{padding:8px 0;font-size:14.5px}
-  .sf-item{font-size:14.5px}
+  .sf-item{font-size:14.5px;align-items:center}
+  .sf-item svg{margin-top:0}
+  .sf-item a{display:inline-block;padding:11px 0}
   .sf-news{max-width:none}
   .sf-news input{padding:14px 18px}
   .sf-bottom{flex-direction:column;align-items:flex-start;gap:10px}
