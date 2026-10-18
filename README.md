@@ -95,9 +95,9 @@ netlify init            # or: netlify link
 netlify deploy --build --prod
 ```
 
-Or connect the repo in the Netlify dashboard. `netlify.toml` sets the build command
-(`npm run build`) and the official `@netlify/plugin-nextjs` runtime. Headers and redirects
-are defined in `next.config.ts`, so no `_redirects` file is needed.
+Or connect the repo in the Netlify dashboard (build command `npm run build`; Netlify detects Next.js
+and installs its official runtime automatically). Headers and redirects are defined in
+`next.config.ts`, so no `_redirects` file or `netlify.toml` is needed.
 
 ## Adding AI features later
 
