@@ -1,11 +1,11 @@
 "use client";
 
+import SiteFooter from "@/components/SiteFooter";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ScrollProgress from "@/components/legacy/ScrollProgress";
 import GooFilter from "@/components/legacy/GooFilter";
 import MobileDrawer from "@/components/legacy/MobileDrawer";
-import SiteFooter from "@/components/legacy/SiteFooter";
 import CookieBanner from "@/components/legacy/CookieBanner";
 import BackToTop from "@/components/legacy/BackToTop";
 import SharedStyles from "@/components/legacy/SharedStyles";
