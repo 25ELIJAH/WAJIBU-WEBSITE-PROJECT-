@@ -83,7 +83,7 @@ vercel --prod
 ```
 
 Or import the repo at vercel.com/new – the Next.js preset is detected automatically
-(`vercel.json` pins it). Add the variables from `.env.example` in
+Add the variables from `.env.example` in
 *Project → Settings → Environment Variables*.
 
 ### Netlify
