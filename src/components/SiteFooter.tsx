@@ -18,14 +18,23 @@ const QUICK_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-// Every id below exists on the Services page.
-const SERVICES = [
+// Home and Contact originally listed the three core engagements; every other page listed six.
+// The Services page has sections with ids diagnose, architect and evidence (originally titled
+// ESG Strategy, Compliance and ESG Reporting). Training, ESG Audits and Advisory are not shown
+// as sections there, so they link to the Services page itself.
+const SERVICES_CORE = [
   { href: "/services#diagnose", label: "Diagnose" },
   { href: "/services#architect", label: "Architect" },
   { href: "/services#evidence", label: "Evidence" },
-  { href: "/services#training", label: "Training" },
-  { href: "/services#audits", label: "ESG Audits" },
-  { href: "/services#advisory", label: "Advisory" },
+];
+
+const SERVICES_FULL = [
+  { href: "/services#diagnose", label: "ESG Strategy" },
+  { href: "/services#architect", label: "Compliance" },
+  { href: "/services#evidence", label: "ESG Reporting" },
+  { href: "/services", label: "Training" },
+  { href: "/services", label: "ESG Audits" },
+  { href: "/services", label: "Advisory" },
 ];
 
 const LEGAL = [
@@ -45,7 +54,14 @@ const DEFAULT_MISSION =
   "ESG & Social Responsibility Compliance · FCA · CSRD · Consumer Duty · Modern Slavery Act";
 
 /** `mission` lets a page keep its original one-line description. */
-export default function SiteFooter({ mission = DEFAULT_MISSION }: { mission?: string }) {
+export default function SiteFooter({
+  mission = DEFAULT_MISSION,
+  services = "full",
+}: {
+  mission?: string;
+  services?: "core" | "full";
+}) {
+  const serviceLinks = services === "core" ? SERVICES_CORE : SERVICES_FULL;
   const pathname = usePathname();
   const cur = (href: string) => (pathname === href ? ("page" as const) : undefined);
 
@@ -98,8 +114,8 @@ export default function SiteFooter({ mission = DEFAULT_MISSION }: { mission?: st
         <nav className="sf-col" aria-label="Services">
           <h4>Services</h4>
           <ul>
-            {SERVICES.map((l) => (
-              <li key={l.href}>
+            {serviceLinks.map((l) => (
+              <li key={l.label}>
                 <Link href={l.href}>{l.label}</Link>
               </li>
             ))}
