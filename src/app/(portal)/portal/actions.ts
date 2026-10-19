@@ -108,3 +108,26 @@ export async function markAllRead() {
   revalidatePath("/portal/notifications");
   redirect("/portal/notifications");
 }
+
+/**
+ * Organisations cannot delete anything themselves. They ask WAJIBU, who review the request in
+ * Admin → Requests and delete the organisation (or decline).
+ */
+export async function requestDeletion(formData: FormData) {
+  const user = await requireUser("COMPANY", "CHARITY");
+  const org = user.organisation!;
+  const reason = String(formData.get("reason") ?? "").trim().slice(0, 1000);
+
+  const pending = await db.deletionRequest.findFirst({ where: { organisationId: org.id, status: "PENDING" } });
+  if (!pending) {
+    await db.deletionRequest.create({ data: { organisationId: org.id, requestedBy: user.id, reason } });
+    await notifyAdmins(
+      `Account deletion requested: ${org.name}`,
+      `${user.name} (${user.email}) asked WAJIBU to delete the ${org.type === "CHARITY" ? "charity" : "company"} account.${reason ? ` Reason: ${reason}` : ""}`,
+      "/admin/requests"
+    );
+    await notifyOrganisation(org.id, "Deletion request received", "WAJIBU will review your request and be in touch.");
+    await audit(user.id, "deletion.request", org.id);
+  }
+  redirect("/portal/account?deletion=1");
+}

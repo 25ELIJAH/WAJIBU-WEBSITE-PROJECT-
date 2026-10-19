@@ -40,6 +40,7 @@ export default async function OrganisationPage({
     },
   });
   if (!org) notFound();
+  const deletionRequest = await db.deletionRequest.findFirst({ where: { organisationId: org.id, status: "PENDING" } });
   const admin = org.users[0];
   const c = org.charity;
   const selected = parseSectors(c?.sectors);
@@ -52,6 +53,13 @@ export default async function OrganisationPage({
       <p className="pt-eyebrow">{org.type === "CHARITY" ? "Charity" : "Company"}</p>
       <h1 className="pt-title">{org.name}</h1>
       <FlashBox />
+      {deletionRequest && (
+        <div className="pt-msg err" role="status">
+          <strong>Deletion requested</strong> on {deletionRequest.createdAt.toLocaleDateString("en-GB")}
+          {deletionRequest.reason && <> &ndash; &ldquo;{deletionRequest.reason}&rdquo;</>}. Use <em>Delete organisation</em> below to carry it out,
+          or decline it from <Link href="/admin/requests" style={{ textDecoration: "underline" }}>Requests</Link>.
+        </div>
+      )}
       {msg && MSG[msg] && <div className="pt-msg ok" role="status">{MSG[msg]}</div>}
       {error && (
         <div className="pt-msg err" role="alert">

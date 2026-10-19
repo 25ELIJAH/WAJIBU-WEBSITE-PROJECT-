@@ -10,7 +10,7 @@ profile and every introduction. The portal uses the same palette, fonts and butt
 | Registration | Organisations **request access** (`/request-access`). WAJIBU reviews, approves and chooses the single administrator who receives the login. |
 | Visibility | Charity profiles are visible **only to signed-in companies** (and WAJIBU). A charity can open **only its own page**. Companies cannot see each other – the company side is fully private. |
 | Accounts | **One administrator per organisation**, set by WAJIBU. WAJIBU's own administrator is `Admin1@wajibu.uk` (Samuel Orie). |
-| Deletion | Charities and companies cannot delete anything. They ask WAJIBU, who deletes the organisation (Admin → Organisations → Manage → Delete). |
+| Deletion | Charities and companies cannot delete anything. They press **Request account deletion** on their Account page; WAJIBU sees it under Admin → Requests and either deletes the organisation (Organisations → Manage → Delete) or declines it. |
 | Uploads | **No upload capability for charities or companies.** Only WAJIBU administrators add photos (JPG/PNG/WebP, 5 MB). No videos. |
 | Sectors | Environment, Social Welfare, Education, Orphanage (edit the list in `src/lib/portal/constants.ts`). |
 | Profile | Directory cards show **name and country only**. The profile page shows the registered charity number in the summary. |
@@ -47,8 +47,9 @@ Generate a session secret with:
    Images are always streamed through `/api/portal/photo/<file>`, which checks the viewer's permission.
 4. **Seed the admin** – run `npm run db:seed` once against production, then change the password at first sign-in.
 5. **Email** – create a Resend account, verify `wajibu.uk`, set `RESEND_API_KEY`. Until then notifications work in-app only.
-6. **Soft launch** – approve a handful of charities, fill their profiles, tick **Published**. Unpublished charities are
-   invisible to companies. The planned SharePoint import can create the organisations and profiles the same way.
+6. **Soft launch** – use Admin → **Import** to load the first charities from a CSV (e.g. a SharePoint export), then open each
+   one to review the profile, add photos, assign its administrator and tick **Published**. Unpublished charities are
+   invisible to companies. Admin → **Staff** manages WAJIBU administrator accounts.
 
 ## Security notes
 
@@ -64,4 +65,4 @@ Generate a session secret with:
 
 - AI matching on company values (field and extension point exist: `CompanyProfile.values`, `src/app/api/chat/route.ts`).
 - Self-service password reset by email (today the WAJIBU admin resets passwords).
-- SharePoint import of charity data.
+- Direct SharePoint connection (today: export to CSV and use Admin → Import).

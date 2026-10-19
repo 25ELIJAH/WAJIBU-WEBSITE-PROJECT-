@@ -357,3 +357,98 @@ export async function setStaffActive(formData: FormData) {
   revalidatePath("/admin/staff");
   redirect("/admin/staff?msg=saved");
 }
+
+/* ───────────────────────── deletion requests ───────────────────────── */
+
+/** Decline an organisation's deletion request. (To approve it, delete the organisation from its page.) */
+export async function declineDeletion(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const id = cuid.safeParse(formData.get("requestId"));
+  if (!id.success) redirect("/admin/requests?error=invalid");
+  const req = await db.deletionRequest.update({ where: { id: id.data }, data: { status: "DECLINED", decidedAt: new Date() } });
+  await notifyOrganisation(req.organisationId, "Deletion request reviewed", "WAJIBU has reviewed your request and will contact you directly.");
+  await audit(admin.id, "deletion.decline", id.data);
+  revalidatePath("/admin/requests");
+  redirect("/admin/requests?msg=declined");
+}
+
+/* ───────────────────────── bulk import (soft launch) ───────────────────────── */
+
+const SECTOR_BY_NAME = new Map<string, string>(
+  [
+    ["environment", "environment"],
+    ["social welfare", "social-welfare"],
+    ["social-welfare", "social-welfare"],
+    ["education", "education"],
+    ["orphanage", "orphanage"],
+  ]
+);
+
+/**
+ * Imports charities from a CSV (e.g. exported from SharePoint). Columns (header row required):
+ *   name, country, registered_number, sectors (separate with ;), summary, compliance_level (0-5), published (yes/no)
+ * Charities are created without logins – assign each administrator afterwards from its page.
+ * Rows whose name+country already exist are skipped. Nothing is published unless the row says "yes".
+ */
+export async function importCharities(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const file = formData.get("csv");
+  if (!(file instanceof File) || file.size === 0) redirect("/admin/import?error=file");
+  if (file.size > 1_000_000) redirect("/admin/import?error=size");
+
+  const { parseCsv } = await import("@/lib/portal/csv");
+  const rows = parseCsv(await file.text());
+  if (rows.length < 2) redirect("/admin/import?error=empty");
+  if (rows.length > 501) redirect("/admin/import?error=rows");
+
+  const header = rows[0].map((h) => h.trim().toLowerCase().replace(/[\s-]+/g, "_"));
+  const col = (name: string) => header.indexOf(name);
+  const iName = col("name"), iCountry = col("country");
+  if (iName < 0 || iCountry < 0) redirect("/admin/import?error=columns");
+  const iNum = col("registered_number"), iSec = col("sectors"), iSum = col("summary"), iLvl = col("compliance_level"), iPub = col("published");
+
+  let created = 0, skipped = 0;
+  const problems: string[] = [];
+
+  for (let r = 1; r < rows.length; r++) {
+    const row = rows[r];
+    const get = (i: number) => (i >= 0 ? (row[i] ?? "").trim() : "");
+    const name = get(iName).slice(0, 160), country = get(iCountry).slice(0, 80);
+    if (name.length < 2 || country.length < 2) {
+      problems.push(`Row ${r + 1}: name and country are required`);
+      continue;
+    }
+    const exists = await db.organisation.findFirst({ where: { type: "CHARITY", name, country } });
+    if (exists) {
+      skipped++;
+      continue;
+    }
+    const sectors = [...new Set(get(iSec).split(/[;|]/).map((s) => SECTOR_BY_NAME.get(s.trim().toLowerCase())).filter(Boolean) as string[])];
+    const level = Math.min(Math.max(parseInt(get(iLvl), 10) || 0, 0), COMPLIANCE_LEVELS.length - 1);
+    await db.organisation.create({
+      data: {
+        type: "CHARITY",
+        name,
+        country,
+        charity: {
+          create: {
+            registeredNumber: get(iNum).slice(0, 60) || null,
+            summary: get(iSum).slice(0, 5000),
+            sectors: sectors.join(","),
+            complianceLevel: level,
+            published: /^(y|yes|true|1)$/i.test(get(iPub)),
+          },
+        },
+      },
+    });
+    created++;
+  }
+
+  await audit(admin.id, "charity.import", `created=${created} skipped=${skipped} problems=${problems.length}`);
+  await setFlash({
+    title: `Import finished: ${created} created, ${skipped} skipped (already exist), ${problems.length} with problems`,
+    lines: problems.slice(0, 10),
+  });
+  revalidatePath("/admin", "layout");
+  redirect("/admin/import");
+}

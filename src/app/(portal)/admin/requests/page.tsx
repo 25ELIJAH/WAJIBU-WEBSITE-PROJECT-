@@ -1,6 +1,7 @@
 import { db } from "@/lib/portal/db";
 import { requireUser } from "@/lib/portal/session";
-import { approveRequest, rejectRequest } from "../actions";
+import Link from "next/link";
+import { approveRequest, declineDeletion, rejectRequest } from "../actions";
 import FlashBox from "../FlashBox";
 
 export const metadata = { title: "Access requests" };
@@ -14,6 +15,11 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
     orderBy: { createdAt: "desc" },
     take: 100,
   });
+  const deletions = await db.deletionRequest.findMany({
+    where: { status: "PENDING" },
+    include: { organisation: { include: { users: { select: { name: true, email: true } } } } },
+    orderBy: { createdAt: "asc" },
+  });
 
   return (
     <main className="pt-main">
@@ -25,6 +31,37 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
       <FlashBox />
       {error && <div className="pt-msg err">{error === "email" ? "That administrator email already has an account." : "Please check the details and try again."}</div>}
       {msg === "rejected" && <div className="pt-msg ok">Request rejected.</div>}
+      {msg === "declined" && <div className="pt-msg ok">Deletion request declined.</div>}
+
+      {deletions.length > 0 && (
+        <section style={{ marginBottom: 36 }} aria-labelledby="deletions">
+          <h2 id="deletions" style={{ fontSize: 28, marginBottom: 14 }}>Account deletion requests</h2>
+          <div className="pt-grid">
+            {deletions.map((d) => (
+              <div key={d.id} className="pt-card" style={{ borderColor: "rgba(140,47,47,.35)" }}>
+                <div className="pt-row" style={{ justifyContent: "space-between" }}>
+                  <h3>{d.organisation.name}</h3>
+                  <span className="pt-pill pending">Pending</span>
+                </div>
+                <p className="pt-country" style={{ margin: "4px 0 10px" }}>
+                  {d.organisation.type === "CHARITY" ? "Charity" : "Company"} · {d.organisation.country} · requested {d.createdAt.toLocaleDateString("en-GB")}
+                  {d.organisation.users[0] && ` · by ${d.organisation.users[0].name}`}
+                </p>
+                {d.reason && <p style={{ fontSize: 14, margin: "0 0 12px" }}><strong>Reason:</strong> {d.reason}</p>}
+                <div className="pt-row">
+                  <Link href={`/admin/organisations/${d.organisationId}`} className="pt-btn small danger">Review &amp; delete</Link>
+                  <form action={declineDeletion}>
+                    <input type="hidden" name="requestId" value={d.id} />
+                    <button type="submit" className="pt-btn small ghost">Decline</button>
+                  </form>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <h2 style={{ fontSize: 28, marginBottom: 14 }}>Access requests</h2>
 
       <div className="pt-subnav">
         <a href="/admin/requests" className={`pt-chip${!all ? " on" : ""}`}>Pending</a>

@@ -25,6 +25,7 @@ export default async function PortalLayout({ children }: { children: React.React
           { href: "/admin", label: "Overview", exact: true },
           { href: "/admin/requests", label: "Requests" },
           { href: "/admin/organisations", label: "Organisations" },
+          { href: "/admin/import", label: "Import" },
           { href: "/admin/connections", label: "Connections" },
           { href: "/admin/reports", label: "Reports" },
           { href: "/admin/staff", label: "Staff" },

@@ -10,7 +10,7 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
   const user = await requireUser("ADMIN");
   const { pw } = await searchParams;
 
-  const [pending, charities, companies, published, newConns, openConns, recent] = await Promise.all([
+  const [pending, charities, companies, published, newConns, openConns, recent, deletions] = await Promise.all([
     db.accessRequest.count({ where: { status: "PENDING" } }),
     db.organisation.count({ where: { type: "CHARITY" } }),
     db.organisation.count({ where: { type: "COMPANY" } }),
@@ -18,11 +18,13 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
     db.connection.count({ where: { status: "NEW" } }),
     db.connection.count({ where: { status: { in: ["NEW", "IN_PROGRESS"] } } }),
     db.notification.findMany({ where: { userId: user.id }, orderBy: { createdAt: "desc" }, take: 6 }),
+    db.deletionRequest.count({ where: { status: "PENDING" } }),
   ]);
 
   const stats = [
     { n: pending, l: "Access requests waiting", href: "/admin/requests" },
     { n: newConns, l: "New connection requests", href: "/admin/connections" },
+    ...(deletions > 0 ? [{ n: deletions, l: "Deletion requests waiting", href: "/admin/requests" }] : []),
     { n: charities, l: `Charities (${published} published)`, href: "/admin/organisations?type=CHARITY" },
     { n: companies, l: "Companies", href: "/admin/organisations?type=COMPANY" },
   ];
