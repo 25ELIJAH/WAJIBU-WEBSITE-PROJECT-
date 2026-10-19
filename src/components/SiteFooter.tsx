@@ -16,6 +16,7 @@ const QUICK_LINKS = [
   { href: "/insights", label: "Insights" },
   { href: "/impact", label: "Impact" },
   { href: "/contact", label: "Contact" },
+  { href: "/login", label: "Portal Login" },
 ];
 
 // Home and Contact originally listed the three core engagements; every other page listed six.

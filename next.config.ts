@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   // Legacy page scripts mutate the DOM directly, so StrictMode double-mounting is disabled.
   reactStrictMode: false,
   poweredByHeader: false,
+  // Admin photo uploads are posted through server actions (5 MB images + form overhead).
+  experimental: { serverActions: { bodySizeLimit: "6mb" } },
   trailingSlash: false,
   async redirects() {
     // Old static-site URLs (about.html, ...) -> clean routes

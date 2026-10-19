@@ -16,6 +16,12 @@ cp .env.example .env.local   # optional – defaults work without it
 npm run dev                  # http://localhost:3000
 ```
 
+## Charity portal
+
+The site includes a private charity–company portal (`/login`, `/portal`, `/admin`). It needs a database and a
+few environment variables before it works – see **[docs/PORTAL.md](docs/PORTAL.md)** for the decisions it implements,
+local setup (`npx prisma migrate dev`, `npm run db:seed`), security notes and the go-live checklist.
+
 ## Build
 
 ```bash
