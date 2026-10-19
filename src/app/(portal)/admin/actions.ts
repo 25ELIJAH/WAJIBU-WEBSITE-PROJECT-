@@ -315,3 +315,45 @@ export async function updateConnection(formData: FormData) {
   revalidatePath("/admin/connections");
   redirect("/admin/connections?msg=saved");
 }
+
+/* ───────────────────────── WAJIBU staff ───────────────────────── */
+
+const staffSchema = z.object({
+  name: text(120).min(2),
+  email: z.string().trim().toLowerCase().email().max(200),
+});
+
+/** Adds another WAJIBU administrator (role ADMIN, no organisation). */
+export async function addStaff(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const p = staffSchema.safeParse(Object.fromEntries(formData));
+  if (!p.success) redirect("/admin/staff?error=invalid");
+  if (await db.user.findUnique({ where: { email: p.data.email } })) redirect("/admin/staff?error=email");
+  const temp = generateTempPassword();
+  await db.user.create({
+    data: { email: p.data.email, name: p.data.name, role: "ADMIN", passwordHash: await hashPassword(temp), mustChangePassword: true },
+  });
+  await audit(admin.id, "staff.add", p.data.email);
+  await setFlash({
+    title: `${p.data.name} added as a WAJIBU administrator`,
+    lines: [`${p.data.email}`, `Temporary password (shown once – pass it on securely): ${temp}`],
+  });
+  redirect("/admin/staff");
+}
+
+/** Activate or deactivate a staff account. You cannot deactivate yourself or the last active administrator. */
+export async function setStaffActive(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const id = cuid.safeParse(formData.get("userId"));
+  const active = formData.get("active") === "1";
+  if (!id.success) redirect("/admin/staff?error=invalid");
+  if (!active) {
+    if (id.data === admin.id) redirect("/admin/staff?error=self");
+    const others = await db.user.count({ where: { role: "ADMIN", active: true, NOT: { id: id.data } } });
+    if (others === 0) redirect("/admin/staff?error=last");
+  }
+  await db.user.update({ where: { id: id.data, role: "ADMIN" }, data: { active } });
+  await audit(admin.id, active ? "staff.activate" : "staff.deactivate", id.data);
+  revalidatePath("/admin/staff");
+  redirect("/admin/staff?msg=saved");
+}
