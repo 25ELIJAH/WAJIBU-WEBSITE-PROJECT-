@@ -171,6 +171,16 @@ model DeletionRequest {
   @@index([status])
 }
 
+/// Sector / category tags that can be put on a charity. Managed by WAJIBU in Admin → Sectors.
+/// A charity stores the keys it carries as a comma-separated list (CharityProfile.sectors).
+model Sector {
+  id     String  @id @default(cuid())
+  key    String  @unique // url-safe slug, never changes once created
+  label  String
+  active Boolean @default(true) // inactive sectors are hidden from filters and from new tagging
+  sort   Int     @default(0)
+}
+
 model Notification {
   id        String    @id @default(cuid())
   userId    String

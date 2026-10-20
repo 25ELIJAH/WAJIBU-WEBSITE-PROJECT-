@@ -21,7 +21,7 @@ export default async function ConnectionsPage({ searchParams }: { searchParams: 
   });
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">Matching</p>
       <h1 className="pt-title">Connection requests</h1>
       <p className="pt-sub">A company selected a charity &ndash; WAJIBU takes over. Update the status as you progress.</p>

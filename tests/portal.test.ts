@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parseCsv } from "../src/lib/portal/csv";
 import { generateTempPassword, hashPassword, passwordProblem, verifyPassword } from "../src/lib/portal/password";
-import { parseSectors, sectorLabel, SECTOR_KEYS } from "../src/lib/portal/constants";
+import { DEFAULT_SECTORS, parseSectors, slugify } from "../src/lib/portal/constants";
 import { prepareImage } from "../src/lib/portal/storage";
 
 /* ───────── CSV import ───────── */
@@ -57,11 +57,23 @@ test("password hashing round-trips and rejects wrong passwords", async () => {
 
 /* ───────── sectors ───────── */
 
-test("sectors: required categories exist and unknown tags are dropped", () => {
-  for (const k of ["environment", "social-welfare", "education", "orphanage"]) assert.ok(SECTOR_KEYS.includes(k));
-  assert.deepEqual(parseSectors("environment, bogus ,orphanage"), ["environment", "orphanage"]);
+test("sectors: the required starting categories exist", () => {
+  const keys: string[] = DEFAULT_SECTORS.map((s) => s.key);
+  for (const k of ["environment", "social-welfare", "education", "orphanage"]) assert.ok(keys.includes(k));
+});
+
+test("sectors: tag lists parse cleanly", () => {
+  assert.deepEqual(parseSectors("environment, healthcare ,orphanage"), ["environment", "healthcare", "orphanage"]);
   assert.deepEqual(parseSectors(""), []);
-  assert.equal(sectorLabel("social-welfare"), "Social Welfare");
+  assert.deepEqual(parseSectors(null), []);
+});
+
+test("sectors: new sector names become safe, stable keys", () => {
+  assert.equal(slugify("Social Welfare"), "social-welfare");
+  assert.equal(slugify("  Health & Care!! "), "health-care");
+  assert.equal(slugify("Éducation"), "education");
+  assert.equal(slugify("!!!"), "");
+  assert.ok(slugify("x".repeat(100)).length <= 40);
 });
 
 /* ───────── photo validation ───────── */

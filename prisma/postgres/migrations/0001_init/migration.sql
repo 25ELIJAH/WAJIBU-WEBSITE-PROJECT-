@@ -135,6 +135,17 @@ CREATE TABLE "DeletionRequest" (
 );
 
 -- CreateTable
+CREATE TABLE "Sector" (
+    "id" TEXT NOT NULL,
+    "key" TEXT NOT NULL,
+    "label" TEXT NOT NULL,
+    "active" BOOLEAN NOT NULL DEFAULT true,
+    "sort" INTEGER NOT NULL DEFAULT 0,
+
+    CONSTRAINT "Sector_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Notification" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -196,6 +207,9 @@ CREATE INDEX "AccessRequest_status_idx" ON "AccessRequest"("status");
 
 -- CreateIndex
 CREATE INDEX "DeletionRequest_status_idx" ON "DeletionRequest"("status");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Sector_key_key" ON "Sector"("key");
 
 -- CreateIndex
 CREATE INDEX "Notification_userId_readAt_idx" ON "Notification"("userId", "readAt");

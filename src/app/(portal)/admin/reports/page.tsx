@@ -54,7 +54,7 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
   const total = (k: "views" | "shortlists" | "connections") => rows.reduce((s, r) => s + r[k], 0);
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">Insight</p>
       <h1 className="pt-title">Reports</h1>
       <p className="pt-sub">How many companies viewed, shortlisted and asked to connect with each charity.</p>

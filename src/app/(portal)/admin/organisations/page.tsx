@@ -19,7 +19,7 @@ export default async function OrganisationsPage({ searchParams }: { searchParams
   });
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">Directory management</p>
       <h1 className="pt-title">Organisations</h1>
       <FlashBox />

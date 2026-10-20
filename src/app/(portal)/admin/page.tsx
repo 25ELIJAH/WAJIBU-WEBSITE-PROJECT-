@@ -30,7 +30,7 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
   ];
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">WAJIBU administration</p>
       <h1 className="pt-title">Welcome, {user.name.split(" ")[0]}</h1>
       <p className="pt-sub">{openConns} connection request{openConns === 1 ? "" : "s"} currently open.</p>

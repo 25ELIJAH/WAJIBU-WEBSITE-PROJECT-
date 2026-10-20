@@ -12,7 +12,7 @@ export default async function NotificationsPage() {
   const unread = notes.filter((n) => !n.readAt).length;
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">Inbox</p>
       <h1 className="pt-title">Notifications</h1>
       {unread > 0 && (

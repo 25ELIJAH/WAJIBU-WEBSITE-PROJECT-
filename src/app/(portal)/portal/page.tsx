@@ -2,7 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/portal/db";
 import { requireUser } from "@/lib/portal/session";
-import { parseSectors, sectorLabel } from "@/lib/portal/constants";
+import { parseSectors } from "@/lib/portal/constants";
+import { getSectorLabels } from "@/lib/portal/sectors";
 import CharityView from "../CharityView";
 import { removeFromShortlist, requestConnection } from "./actions";
 
@@ -28,9 +29,9 @@ export default async function PortalHome({ searchParams }: { searchParams: Promi
       where: { organisationId: user.organisationId! },
       include: { organisation: true, photos: { orderBy: { sort: "asc" } } },
     });
-    if (!charity) return <main className="pt-main"><div className="pt-empty">Your profile is being prepared by WAJIBU.</div></main>;
+    if (!charity) return <main className="pt-main" id="main"><div className="pt-empty">Your profile is being prepared by WAJIBU.</div></main>;
     return (
-      <main className="pt-main">
+      <main className="pt-main" id="main">
         {pw && <div className="pt-msg ok">Your password has been updated.</div>}
         <CharityView charity={charity}>
           {!charity.published && (
@@ -49,6 +50,7 @@ export default async function PortalHome({ searchParams }: { searchParams: Promi
 
   /* ───────── company dashboard ───────── */
   const companyId = user.organisationId!;
+  const labels = await getSectorLabels();
   const [shortlist, connections, notes] = await Promise.all([
     db.shortlist.findMany({
       where: { companyId, charity: { published: true } },
@@ -65,7 +67,7 @@ export default async function PortalHome({ searchParams }: { searchParams: Promi
   ]);
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">{user.organisation!.name}</p>
       <h1 className="pt-title">Your dashboard</h1>
       <p className="pt-sub">
@@ -90,7 +92,7 @@ export default async function PortalHome({ searchParams }: { searchParams: Promi
                 <h3><Link href={`/portal/charity/${c.id}`}>{c.organisation.name}</Link></h3>
                 <p className="pt-country">{c.organisation.country}</p>
                 <div className="pt-tags">
-                  {parseSectors(c.sectors).map((s) => <span key={s} className="pt-tag">{sectorLabel(s)}</span>)}
+                  {parseSectors(c.sectors).map((s) => <span key={s} className="pt-tag">{labels[s] ?? s}</span>)}
                 </div>
                 <label className="pt-pick">
                   <input type="checkbox" name="charityId" value={c.id} /> Select

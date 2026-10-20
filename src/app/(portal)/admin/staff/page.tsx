@@ -19,7 +19,7 @@ export default async function StaffPage({ searchParams }: { searchParams: Promis
   const staff = await db.user.findMany({ where: { role: "ADMIN" }, orderBy: { createdAt: "asc" } });
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">WAJIBU administration</p>
       <h1 className="pt-title">WAJIBU staff</h1>
       <p className="pt-sub">People who can manage the portal. Charity and company logins are managed under Organisations.</p>

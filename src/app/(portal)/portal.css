@@ -118,3 +118,19 @@
   .pt-btn { width: 100%; }
   .pt-row .pt-btn { width: auto; flex: 1 1 auto; }
 }
+
+/* directory search + paging */
+.pt-search { padding: 11px 16px; border: 1px solid rgba(10, 61, 42, 0.2); border-radius: 50px; background: #fff; font: 400 14px var(--sans); color: var(--char); min-width: 0; flex: 1 1 260px; max-width: 420px; }
+.pt-search:focus { outline: 2px solid rgba(212, 160, 23, 0.55); border-color: var(--gold); }
+.pt-pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
+
+/* accessibility */
+.pt-skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--gold); color: var(--gdp); padding: 10px 18px; border-radius: 0 0 10px 10px; font: 600 13px var(--sans); transition: top .15s; }
+.pt-skip:focus { top: 0; }
+.pt a:focus-visible, .pt button:focus-visible, .pt summary:focus-visible, .pt select:focus-visible, .pt input[type="checkbox"]:focus-visible, .pt input[type="file"]:focus-visible {
+  outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 6px;
+}
+.pt-head a:focus-visible, .pt-head button:focus-visible { outline-color: var(--golds); }
+@media (prefers-reduced-motion: reduce) {
+  .pt *, .pt *::before, .pt *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+}

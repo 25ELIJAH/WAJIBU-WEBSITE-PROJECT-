@@ -35,7 +35,7 @@ export default async function CharityPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-hint" style={{ marginBottom: 16 }}>
         <Link href={user.role === "ADMIN" ? "/admin/organisations" : user.role === "CHARITY" ? "/portal" : "/portal/directory"} style={{ textDecoration: "underline" }}>
           &larr; Back

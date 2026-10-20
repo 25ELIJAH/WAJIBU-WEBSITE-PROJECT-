@@ -1,4 +1,5 @@
-import { parseSectors, sectorLabel } from "@/lib/portal/constants";
+import { parseSectors } from "@/lib/portal/constants";
+import { getSectorLabels } from "@/lib/portal/sectors";
 
 type Charity = {
   id: string;
@@ -11,8 +12,9 @@ type Charity = {
 };
 
 /** A charity's profile page: name and country on top, then the summary (including the registered number). */
-export default function CharityView({ charity, children }: { charity: Charity; children?: React.ReactNode }) {
+export default async function CharityView({ charity, children }: { charity: Charity; children?: React.ReactNode }) {
   const sectors = parseSectors(charity.sectors);
+  const labels = await getSectorLabels();
   return (
     <>
       <p className="pt-eyebrow">Charity profile</p>
@@ -37,7 +39,7 @@ export default function CharityView({ charity, children }: { charity: Charity; c
             {sectors.length ? (
               <span className="pt-tags">
                 {sectors.map((s) => (
-                  <span key={s} className="pt-tag">{sectorLabel(s)}</span>
+                  <span key={s} className="pt-tag">{labels[s] ?? s}</span>
                 ))}
               </span>
             ) : (

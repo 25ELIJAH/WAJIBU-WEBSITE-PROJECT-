@@ -22,7 +22,7 @@ export default async function ImportPage({ searchParams }: { searchParams: Promi
   const { error } = await searchParams;
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">Soft launch</p>
       <h1 className="pt-title">Import charities</h1>
       <p className="pt-sub">
@@ -45,7 +45,7 @@ export default async function ImportPage({ searchParams }: { searchParams: Promi
         <h3>File format</h3>
         <p className="pt-hint" style={{ margin: "6px 0 12px" }}>
           First row is the header. Only <code>name</code> and <code>country</code> are required. Separate several sectors with a semicolon
-          (Environment, Social Welfare, Education, Orphanage). <code>compliance_level</code> is 0&ndash;5. A charity with the same name and
+          (use the names shown in Admin → Sectors; unknown names are ignored). <code>compliance_level</code> is 0&ndash;5. A charity with the same name and
           country that already exists is skipped.
         </p>
         <pre style={{ background: "var(--cream)", padding: 14, borderRadius: 8, overflowX: "auto", fontSize: 12.5, margin: 0 }}>{EXAMPLE}</pre>

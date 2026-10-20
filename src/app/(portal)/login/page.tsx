@@ -16,7 +16,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const { error, next } = await searchParams;
 
   return (
-    <main className="pt-main narrow">
+    <main className="pt-main narrow" id="main">
       <p className="pt-eyebrow">Charity Portal</p>
       <h1 className="pt-title">Sign in</h1>
       <p className="pt-sub">

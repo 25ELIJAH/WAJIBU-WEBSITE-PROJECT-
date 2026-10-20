@@ -1,22 +1,30 @@
-/** Sector tags a charity can carry. Add new ones here; stored as comma-separated keys. */
-export const SECTORS = [
+/**
+ * Sectors a charity can be tagged with. These are only the STARTING set: WAJIBU adds, renames, hides and
+ * removes sectors in Admin → Sectors (stored in the database, see src/lib/portal/sectors.ts).
+ */
+export const DEFAULT_SECTORS = [
   { key: "environment", label: "Environment" },
   { key: "social-welfare", label: "Social Welfare" },
   { key: "education", label: "Education" },
   { key: "orphanage", label: "Orphanage" },
 ] as const;
 
-export type SectorKey = (typeof SECTORS)[number]["key"];
-
-export const SECTOR_KEYS: string[] = SECTORS.map((s) => s.key);
-
-export const sectorLabel = (key: string) => SECTORS.find((s) => s.key === key)?.label ?? key;
-
+/** A charity stores its sector keys as a comma-separated list. */
 export const parseSectors = (csv: string | null | undefined): string[] =>
   (csv ?? "")
     .split(",")
     .map((s) => s.trim())
-    .filter((s) => SECTOR_KEYS.includes(s));
+    .filter(Boolean);
+
+/** "Social Welfare!" -> "social-welfare" (stable, url-safe key for a new sector). */
+export const slugify = (label: string) =>
+  label
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "") // drop accents
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40);
 
 export const ROLES = ["ADMIN", "CHARITY", "COMPANY"] as const;
 export type Role = (typeof ROLES)[number];

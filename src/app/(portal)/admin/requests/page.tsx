@@ -22,7 +22,7 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
   });
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-eyebrow">Registration</p>
       <h1 className="pt-title">Access requests</h1>
       <p className="pt-sub">

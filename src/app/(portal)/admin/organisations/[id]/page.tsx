@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/portal/db";
 import { requireUser } from "@/lib/portal/session";
-import { COMPLIANCE_LEVELS, SECTORS, parseSectors } from "@/lib/portal/constants";
+import { COMPLIANCE_LEVELS, parseSectors } from "@/lib/portal/constants";
+import { getAllSectors } from "@/lib/portal/sectors";
 import {
   deleteOrganisation,
   deletePhoto,
@@ -44,9 +45,11 @@ export default async function OrganisationPage({
   const admin = org.users[0];
   const c = org.charity;
   const selected = parseSectors(c?.sectors);
+  // active sectors, plus any hidden sector this charity already carries (so saving never drops it silently)
+  const sectorChoices = (await getAllSectors()).filter((s) => s.active || selected.includes(s.key));
 
   return (
-    <main className="pt-main">
+    <main className="pt-main" id="main">
       <p className="pt-hint" style={{ marginBottom: 14 }}>
         <Link href="/admin/organisations" style={{ textDecoration: "underline" }}>&larr; All organisations</Link>
       </p>
@@ -126,7 +129,7 @@ export default async function OrganisationPage({
               <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
                 <legend className="pt-field" style={{ fontSize: 12, fontWeight: 600, color: "var(--gd)", marginBottom: 8 }}>Sectors</legend>
                 <div className="pt-row">
-                  {SECTORS.map((s) => (
+                  {sectorChoices.map((s) => (
                     <label key={s.key} className="pt-chip" style={{ cursor: "pointer" }}>
                       <input type="checkbox" name="sectors" value={s.key} defaultChecked={selected.includes(s.key)} style={{ marginRight: 8, accentColor: "var(--gd)" }} />
                       {s.label}

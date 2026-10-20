@@ -8,7 +8,8 @@ import { requireUser } from "@/lib/portal/session";
 import { audit, notifyOrganisation } from "@/lib/portal/notify";
 import { generateTempPassword, hashPassword } from "@/lib/portal/password";
 import { setFlash } from "@/lib/portal/flash";
-import { COMPLIANCE_LEVELS, CONNECTION_STATUSES, SECTOR_KEYS } from "@/lib/portal/constants";
+import { COMPLIANCE_LEVELS, CONNECTION_STATUSES, parseSectors, slugify } from "@/lib/portal/constants";
+import { getAllSectors } from "@/lib/portal/sectors";
 import { prepareImage, type PreparedImage } from "@/lib/portal/storage";
 import { sendMail } from "@/lib/portal/mail";
 
@@ -147,7 +148,8 @@ export async function updateCharityProfile(formData: FormData) {
   const admin = await requireUser("ADMIN");
   const p = charitySchema.safeParse(Object.fromEntries(formData));
   if (!p.success) redirect("/admin/organisations?error=invalid");
-  const sectors = formData.getAll("sectors").map(String).filter((s) => SECTOR_KEYS.includes(s));
+  const known = new Set((await getAllSectors()).map((s) => s.key));
+  const sectors = formData.getAll("sectors").map(String).filter((s) => known.has(s));
   const { orgId, registeredNumber, summary, complianceLevel } = p.data;
   await db.charityProfile.update({
     where: { organisationId: orgId },
@@ -372,16 +374,6 @@ export async function declineDeletion(formData: FormData) {
 
 /* ───────────────────────── bulk import (soft launch) ───────────────────────── */
 
-const SECTOR_BY_NAME = new Map<string, string>(
-  [
-    ["environment", "environment"],
-    ["social welfare", "social-welfare"],
-    ["social-welfare", "social-welfare"],
-    ["education", "education"],
-    ["orphanage", "orphanage"],
-  ]
-);
-
 /**
  * Imports charities from a CSV (e.g. exported from SharePoint). Columns (header row required):
  *   name, country, registered_number, sectors (separate with ;), summary, compliance_level (0-5), published (yes/no)
@@ -405,6 +397,12 @@ export async function importCharities(formData: FormData) {
   if (iName < 0 || iCountry < 0) redirect("/admin/import?error=columns");
   const iNum = col("registered_number"), iSec = col("sectors"), iSum = col("summary"), iLvl = col("compliance_level"), iPub = col("published");
 
+  // sector names (or keys) in the file -> sector keys, from the sectors WAJIBU manages
+  const sectorLookup = new Map<string, string>();
+  for (const sec of await getAllSectors()) {
+    sectorLookup.set(sec.key.toLowerCase(), sec.key);
+    sectorLookup.set(sec.label.toLowerCase(), sec.key);
+  }
   let created = 0, skipped = 0;
   const problems: string[] = [];
 
@@ -421,7 +419,7 @@ export async function importCharities(formData: FormData) {
       skipped++;
       continue;
     }
-    const sectors = [...new Set(get(iSec).split(/[;|]/).map((s) => SECTOR_BY_NAME.get(s.trim().toLowerCase())).filter(Boolean) as string[])];
+    const sectors = [...new Set(get(iSec).split(/[;|]/).map((s) => sectorLookup.get(s.trim().toLowerCase())).filter(Boolean) as string[])];
     const level = Math.min(Math.max(parseInt(get(iLvl), 10) || 0, 0), COMPLIANCE_LEVELS.length - 1);
     await db.organisation.create({
       data: {
@@ -449,4 +447,46 @@ export async function importCharities(formData: FormData) {
   });
   revalidatePath("/admin", "layout");
   redirect("/admin/import");
+}
+
+/* ───────────────────────── sectors ───────────────────────── */
+
+export async function addSector(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const label = String(formData.get("label") ?? "").trim().slice(0, 60);
+  const key = slugify(label);
+  if (label.length < 2 || !key) redirect("/admin/sectors?error=invalid");
+  if (await db.sector.findUnique({ where: { key } })) redirect("/admin/sectors?error=exists");
+  const last = await db.sector.findFirst({ orderBy: { sort: "desc" } });
+  await db.sector.create({ data: { key, label, sort: (last?.sort ?? 0) + 1 } });
+  await audit(admin.id, "sector.add", key);
+  revalidatePath("/admin/sectors");
+  redirect("/admin/sectors?msg=saved");
+}
+
+/** Rename and/or hide a sector. The key never changes, so existing tags keep working. */
+export async function updateSector(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const id = cuid.safeParse(formData.get("sectorId"));
+  const label = String(formData.get("label") ?? "").trim().slice(0, 60);
+  if (!id.success || label.length < 2) redirect("/admin/sectors?error=invalid");
+  await db.sector.update({ where: { id: id.data }, data: { label, active: formData.get("active") === "on" } });
+  await audit(admin.id, "sector.update", id.data);
+  revalidatePath("/admin/sectors");
+  redirect("/admin/sectors?msg=saved");
+}
+
+/** A sector can only be removed when no charity carries it (hide it instead otherwise). */
+export async function deleteSector(formData: FormData) {
+  const admin = await requireUser("ADMIN");
+  const id = cuid.safeParse(formData.get("sectorId"));
+  if (!id.success) redirect("/admin/sectors?error=invalid");
+  const sector = await db.sector.findUnique({ where: { id: id.data } });
+  if (!sector) redirect("/admin/sectors?error=invalid");
+  const profiles = await db.charityProfile.findMany({ where: { sectors: { contains: sector.key } }, select: { sectors: true } });
+  if (profiles.some((p) => parseSectors(p.sectors).includes(sector.key))) redirect("/admin/sectors?error=inuse");
+  await db.sector.delete({ where: { id: sector.id } });
+  await audit(admin.id, "sector.delete", sector.key);
+  revalidatePath("/admin/sectors");
+  redirect("/admin/sectors?msg=saved");
 }

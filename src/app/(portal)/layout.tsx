@@ -25,6 +25,7 @@ export default async function PortalLayout({ children }: { children: React.React
           { href: "/admin", label: "Overview", exact: true },
           { href: "/admin/requests", label: "Requests" },
           { href: "/admin/organisations", label: "Organisations" },
+          { href: "/admin/sectors", label: "Sectors" },
           { href: "/admin/import", label: "Import" },
           { href: "/admin/connections", label: "Connections" },
           { href: "/admin/reports", label: "Reports" },
@@ -42,6 +43,7 @@ export default async function PortalLayout({ children }: { children: React.React
   return (
     <div className="pt">
       <link rel="stylesheet" href={FONTS} precedence="default" />
+      <a href="#main" className="pt-skip">Skip to main content</a>
       <header className="pt-head">
         <div className="pt-head-in">
           <Link href={user ? (user.role === "ADMIN" ? "/admin" : "/portal") : "/"} className="pt-brand" aria-label="WAJIBU">

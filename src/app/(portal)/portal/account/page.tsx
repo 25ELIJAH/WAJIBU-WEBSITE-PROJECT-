@@ -24,7 +24,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
       : null;
 
   return (
-    <main className="pt-main narrow">
+    <main className="pt-main narrow" id="main">
       <p className="pt-eyebrow">{user.organisation?.name ?? "WAJIBU"}</p>
       <h1 className="pt-title">{forced ? "Choose a new password" : "Your account"}</h1>
       <p className="pt-sub">

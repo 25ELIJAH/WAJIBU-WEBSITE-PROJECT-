@@ -12,9 +12,9 @@ profile and every introduction. The portal uses the same palette, fonts and butt
 | Accounts | **One administrator per organisation**, set by WAJIBU. WAJIBU's own administrator is `Admin1@wajibu.uk` (Samuel Orie). |
 | Deletion | Charities and companies cannot delete anything. They press **Request account deletion** on their Account page; WAJIBU sees it under Admin → Requests and either deletes the organisation (Organisations → Manage → Delete) or declines it. |
 | Uploads | **No upload capability for charities or companies.** Only WAJIBU administrators add photos (JPG/PNG/WebP, 5 MB, verified from the file bytes, stored in the database and served only to permitted users). No videos. |
-| Sectors | Environment, Social Welfare, Education, Orphanage (edit the list in `src/lib/portal/constants.ts`). |
+| Sectors | Environment, Social Welfare, Education and Orphanage to start. WAJIBU manages the list in **Admin → Sectors** – add, rename, hide, or remove a sector (only when no charity uses it); existing tags keep working. |
 | Profile | Directory cards show **name and country only**. The profile page shows the registered charity number in the summary. |
-| Search | Companies filter by **sector**. The company profile already stores a `values` field to feed the future AI matching feature. |
+| Search | Companies filter by **sector** and can search by name or country; results are paged (24 per page). The company profile already stores a `values` field to feed the future AI matching feature. |
 | Shortlist | Companies tick several charities, add them to their **dashboard** shortlist, then request a connection for the selection. |
 | Matching | The company selects the charity, **WAJIBU takes over**. Both parties are notified (in-app, plus email when configured). The charity is told "a company has expressed interest" – the company's identity stays with WAJIBU. |
 | Featuring | WAJIBU can **feature** a charity and set a **compliance level (0–5)**. Order: featured → compliance level → A–Z. |
@@ -61,7 +61,7 @@ Photos are stored in the database, so no separate file storage is needed.
 
 ## Tests
 
-`npm test` runs the unit tests for the CSV importer, password rules, sector tagging and photo validation.
+`npm test` runs the unit tests for the CSV importer, password rules, sector keys and photo validation.
 
 ## Security notes
 
