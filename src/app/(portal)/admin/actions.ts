@@ -9,7 +9,7 @@ import { audit, notifyOrganisation } from "@/lib/portal/notify";
 import { generateTempPassword, hashPassword } from "@/lib/portal/password";
 import { setFlash } from "@/lib/portal/flash";
 import { COMPLIANCE_LEVELS, CONNECTION_STATUSES, SECTOR_KEYS } from "@/lib/portal/constants";
-import { deleteImage, saveImage } from "@/lib/portal/storage";
+import { prepareImage, type PreparedImage } from "@/lib/portal/storage";
 import { sendMail } from "@/lib/portal/mail";
 
 const cuid = z.string().regex(/^[a-z0-9]{20,30}$/);
@@ -189,17 +189,17 @@ export async function uploadPhoto(formData: FormData) {
   const charity = await db.charityProfile.findUnique({ where: { organisationId: orgId.data } });
   if (!charity) redirect("/admin/organisations?error=invalid");
 
-  let name: string;
+  let img: PreparedImage;
   try {
-    name = await saveImage(file);
+    img = await prepareImage(file);
   } catch (e) {
     redirect(`/admin/organisations/${orgId.data}?error=${encodeURIComponent(e instanceof Error ? e.message : "upload")}`);
   }
   const count = await db.photo.count({ where: { charityId: charity.id } });
   await db.photo.create({
-    data: { charityId: charity.id, file: name, caption: String(formData.get("caption") ?? "").trim().slice(0, 160), sort: count },
+    data: { charityId: charity.id, file: img.file, data: img.data, mime: img.mime, caption: String(formData.get("caption") ?? "").trim().slice(0, 160), sort: count },
   });
-  await audit(admin.id, "photo.add", `${charity.id} ${name}`);
+  await audit(admin.id, "photo.add", `${charity.id} ${img.file}`);
   revalidatePath(`/admin/organisations/${orgId.data}`);
   redirect(`/admin/organisations/${orgId.data}?msg=photo`);
 }
@@ -211,7 +211,6 @@ export async function deletePhoto(formData: FormData) {
   const photo = await db.photo.findUnique({ where: { id: id.data }, include: { charity: true } });
   if (!photo) redirect("/admin/organisations?error=invalid");
   await db.photo.delete({ where: { id: photo.id } });
-  await deleteImage(photo.file);
   await audit(admin.id, "photo.delete", photo.id);
   redirect(`/admin/organisations/${photo.charity.organisationId}?msg=saved`);
 }
@@ -285,7 +284,6 @@ export async function deleteOrganisation(formData: FormData) {
   if (!org) redirect("/admin/organisations?error=invalid");
   if (String(formData.get("confirm") ?? "").trim() !== org.name) redirect(`/admin/organisations/${org.id}?error=confirm`);
 
-  for (const p of org.charity?.photos ?? []) await deleteImage(p.file);
   await db.organisation.delete({ where: { id: org.id } }); // cascades users, profile, shortlist, connections…
   await audit(admin.id, "org.delete", `${org.id} ${org.name}`);
   revalidatePath("/admin", "layout");

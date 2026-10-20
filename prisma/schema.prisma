@@ -88,7 +88,11 @@ model Photo {
   id        String         @id @default(cuid())
   charityId String
   charity   CharityProfile @relation(fields: [charityId], references: [id], onDelete: Cascade)
-  file      String // file name inside the upload directory
+  file      String // opaque id used in the authenticated image URL
+  /// The image bytes live in the database, so photos work on any host (including serverless) and are
+  /// only ever served through the permission-checked route /api/portal/photo/<file>.
+  data      Bytes?
+  mime      String         @default("image/jpeg")
   caption   String         @default("")
   sort      Int            @default(0)
   createdAt DateTime       @default(now())

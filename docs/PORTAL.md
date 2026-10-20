@@ -11,7 +11,7 @@ profile and every introduction. The portal uses the same palette, fonts and butt
 | Visibility | Charity profiles are visible **only to signed-in companies** (and WAJIBU). A charity can open **only its own page**. Companies cannot see each other – the company side is fully private. |
 | Accounts | **One administrator per organisation**, set by WAJIBU. WAJIBU's own administrator is `Admin1@wajibu.uk` (Samuel Orie). |
 | Deletion | Charities and companies cannot delete anything. They press **Request account deletion** on their Account page; WAJIBU sees it under Admin → Requests and either deletes the organisation (Organisations → Manage → Delete) or declines it. |
-| Uploads | **No upload capability for charities or companies.** Only WAJIBU administrators add photos (JPG/PNG/WebP, 5 MB). No videos. |
+| Uploads | **No upload capability for charities or companies.** Only WAJIBU administrators add photos (JPG/PNG/WebP, 5 MB, verified from the file bytes, stored in the database and served only to permitted users). No videos. |
 | Sectors | Environment, Social Welfare, Education, Orphanage (edit the list in `src/lib/portal/constants.ts`). |
 | Profile | Directory cards show **name and country only**. The profile page shows the registered charity number in the summary. |
 | Search | Companies filter by **sector**. The company profile already stores a `values` field to feed the future AI matching feature. |
@@ -36,20 +36,32 @@ Generate a session secret with:
 
 ## Going live (end of November)
 
-1. **Database** – Vercel/Netlify are serverless, so use a managed Postgres (Neon, Supabase, Railway…).
-   In `prisma/schema.prisma` change `provider = "sqlite"` to `"postgresql"`, delete `prisma/migrations`, run
-   `npx prisma migrate dev --name init` once against the new database, commit, then deploy with
-   `npx prisma migrate deploy`. Set `DATABASE_URL` in the host's environment variables.
-2. **Environment variables** – `SESSION_SECRET`, `DATABASE_URL`, `ADMIN_PASSWORD` (seed only), optionally
-   `RESEND_API_KEY`, `MAIL_FROM`, `NOTIFY_EMAIL`.
-3. **Photos** – local disk does not persist on serverless hosts. Replace the three functions in
-   `src/lib/portal/storage.ts` (`saveImage`, `readImage`, `deleteImage`) with S3 / Cloudflare R2 / Vercel Blob.
-   Images are always streamed through `/api/portal/photo/<file>`, which checks the viewer's permission.
-4. **Seed the admin** – run `npm run db:seed` once against production, then change the password at first sign-in.
-5. **Email** – create a Resend account, verify `wajibu.uk`, set `RESEND_API_KEY`. Until then notifications work in-app only.
-6. **Soft launch** – use Admin → **Import** to load the first charities from a CSV (e.g. a SharePoint export), then open each
+The code already runs on SQLite locally and PostgreSQL in production – the right database is chosen from
+`DATABASE_URL`, so there is nothing to edit. A ready-made Postgres schema and migration are committed in
+`prisma/postgres/` (regenerate with `npm run db:postgres` after any change to `prisma/schema.prisma`).
+Photos are stored in the database, so no separate file storage is needed.
+
+1. **Create a Postgres database** – Neon or Supabase (both have a free tier). Copy the connection string
+   (it starts with `postgresql://`).
+2. **Create the project on Vercel or Netlify** from this GitHub repo and set these environment variables:
+   - `DATABASE_URL` – the Postgres connection string
+   - `SESSION_SECRET` – a long random value: `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`
+   - `NEXT_PUBLIC_SITE_URL` – `https://www.wajibu.uk`
+   - optional: `RESEND_API_KEY`, `MAIL_FROM`, `NOTIFY_EMAIL` (email notifications)
+3. **Deploy.** `npm run build` generates the Postgres client and applies the migration automatically before building.
+4. **Create the first administrator once**, from your computer, pointing at the production database:
+   `DATABASE_URL="postgresql://…" ADMIN_PASSWORD="a-strong-temporary-password" npm run db:seed`
+   Then sign in as `Admin1@wajibu.uk` – you will be asked to choose your own password straight away.
+5. **Point wajibu.uk at the new deployment** (domain settings on the host).
+6. **Email** (optional) – create a Resend account, verify `wajibu.uk`, set `RESEND_API_KEY`. Until then notifications
+   appear in the portal only.
+7. **Soft launch** – use Admin → **Import** to load the first charities from a CSV (e.g. a SharePoint export), then open each
    one to review the profile, add photos, assign its administrator and tick **Published**. Unpublished charities are
    invisible to companies. Admin → **Staff** manages WAJIBU administrator accounts.
+
+## Tests
+
+`npm test` runs the unit tests for the CSV importer, password rules, sector tagging and photo validation.
 
 ## Security notes
 

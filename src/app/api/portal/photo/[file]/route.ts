@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/portal/db";
 import { getCurrentUser } from "@/lib/portal/session";
-import { readImage } from "@/lib/portal/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -24,12 +23,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
     (user.role === "COMPANY" && c.published && c.organisation.status === "APPROVED");
   if (!allowed) return new NextResponse("Forbidden", { status: 403 });
 
-  const img = await readImage(file);
-  if (!img) return new NextResponse("Not found", { status: 404 });
+  if (!photo.data) return new NextResponse("Not found", { status: 404 });
 
-  return new NextResponse(new Uint8Array(img.data), {
+  return new NextResponse(new Uint8Array(photo.data), {
     headers: {
-      "Content-Type": img.type,
+      "Content-Type": photo.mime,
       "Cache-Control": "private, max-age=3600",
       "X-Content-Type-Options": "nosniff",
     },

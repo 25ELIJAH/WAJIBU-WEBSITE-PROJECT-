@@ -1,41 +1,33 @@
 import "server-only";
-import fs from "node:fs/promises";
-import path from "node:path";
 import { randomUUID } from "node:crypto";
-import { ALLOWED_IMAGE_TYPES, MAX_UPLOAD_BYTES } from "./constants";
+import { MAX_UPLOAD_BYTES } from "./constants";
 
 /**
- * Photo storage. Files live OUTSIDE /public and are streamed through an authenticated route
- * (src/app/api/portal/photo/[file]/route.ts), so profile photos are never public.
+ * Photo handling. Images are stored in the database (Photo.data) so they work on any host,
+ * including serverless platforms with no persistent disk, and they are only ever served through the
+ * permission-checked route /api/portal/photo/<file>. Nothing is written to /public.
  *
- * Local disk is fine for development and for a single server. On Vercel/Netlify the filesystem is
- * ephemeral: swap saveImage/readImage/deleteImage for S3, Cloudflare R2 or Vercel Blob (same signatures).
+ * The file type is verified from the file's own bytes, not from the browser-supplied MIME type.
  */
-const dir = () => path.resolve(process.env.UPLOAD_DIR ?? ".data/uploads");
-const SAFE_NAME = /^[a-f0-9-]{36}\.(jpg|png|webp)$/;
+export type PreparedImage = { file: string; data: Uint8Array<ArrayBuffer>; mime: string };
 
-export async function saveImage(file: File): Promise<string> {
-  const ext = ALLOWED_IMAGE_TYPES[file.type];
-  if (!ext) throw new Error("Only JPG, PNG or WebP images are allowed.");
+function sniff(b: Uint8Array): { ext: string; mime: string } | null {
+  if (b.length > 3 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return { ext: "jpg", mime: "image/jpeg" };
+  if (b.length > 8 && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47) return { ext: "png", mime: "image/png" };
+  if (
+    b.length > 12 &&
+    b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 && // "RIFF"
+    b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50 //  "WEBP"
+  )
+    return { ext: "webp", mime: "image/webp" };
+  return null;
+}
+
+/** Validates an uploaded image and returns what should be stored. Throws a user-readable Error. */
+export async function prepareImage(file: File): Promise<PreparedImage> {
   if (file.size > MAX_UPLOAD_BYTES) throw new Error("Image is larger than 5 MB.");
-  const name = `${randomUUID()}.${ext}`;
-  await fs.mkdir(dir(), { recursive: true });
-  await fs.writeFile(path.join(dir(), name), Buffer.from(await file.arrayBuffer()));
-  return name;
-}
-
-export async function readImage(name: string): Promise<{ data: Buffer; type: string } | null> {
-  if (!SAFE_NAME.test(name)) return null;
-  try {
-    const data = await fs.readFile(path.join(dir(), name));
-    const type = name.endsWith("png") ? "image/png" : name.endsWith("webp") ? "image/webp" : "image/jpeg";
-    return { data, type };
-  } catch {
-    return null;
-  }
-}
-
-export async function deleteImage(name: string) {
-  if (!SAFE_NAME.test(name)) return;
-  await fs.rm(path.join(dir(), name), { force: true });
+  const data = new Uint8Array(await file.arrayBuffer());
+  const kind = sniff(data);
+  if (!kind) throw new Error("Only JPG, PNG or WebP images are allowed.");
+  return { file: `${randomUUID()}.${kind.ext}`, data, mime: kind.mime };
 }
