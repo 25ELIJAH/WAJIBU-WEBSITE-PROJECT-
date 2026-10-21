@@ -11,10 +11,22 @@ export function passwordProblem(pw: string): string | null {
   return null;
 }
 
-/** Readable temporary password (no look-alike characters). Shown once to the WAJIBU admin. */
-export function generateTempPassword(length = 14): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-  let out = "";
-  for (let i = 0; i < length; i++) out += chars[randomInt(chars.length)];
-  return out + "7a";
+const UPPER = "ABCDEFGHJKLMNPQRSTUVWXYZ"; // no I, O
+const LOWER = "abcdefghijkmnpqrstuvwxyz"; // no l, o
+const DIGITS = "23456789"; // no 0, 1
+
+/**
+ * Readable temporary password (no look-alike characters), shown once to the WAJIBU admin.
+ * Always contains at least one upper-case letter, one lower-case letter and one digit, so it satisfies
+ * passwordProblem() every time (a purely random string occasionally would not).
+ */
+export function generateTempPassword(length = 16): string {
+  const pick = (set: string) => set[randomInt(set.length)];
+  const chars = [pick(UPPER), pick(LOWER), pick(DIGITS)];
+  while (chars.length < length) chars.push(pick(UPPER + LOWER + DIGITS));
+  for (let i = chars.length - 1; i > 0; i--) {
+    const j = randomInt(i + 1); // Fisher–Yates shuffle with a CSPRNG
+    [chars[i], chars[j]] = [chars[j], chars[i]];
+  }
+  return chars.join("");
 }

@@ -36,16 +36,16 @@ test("password policy rejects short and single-case passwords", () => {
   assert.equal(passwordProblem("Sunrise-New-Pass9"), null);
 });
 
-test("temporary passwords are long, unique and satisfy the policy", () => {
+test("temporary passwords are long, unique and ALWAYS satisfy the policy", () => {
   const seen = new Set<string>();
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 5000; i++) {
     const p = generateTempPassword();
     assert.equal(p.length, 16);
     assert.equal(passwordProblem(p), null, `policy failed for ${p}`);
-    assert.ok(!/[0OIl1]/.test(p.slice(0, 14)), "look-alike characters present");
+    assert.ok(!/[0OIl1]/.test(p), "look-alike characters present");
     seen.add(p);
   }
-  assert.equal(seen.size, 200);
+  assert.equal(seen.size, 5000);
 });
 
 test("password hashing round-trips and rejects wrong passwords", async () => {
