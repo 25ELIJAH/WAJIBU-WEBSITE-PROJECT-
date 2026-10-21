@@ -10,10 +10,10 @@ const ERRORS: Record<string, string> = {
   locked: "Too many attempts. Please wait 15 minutes and try again.",
 };
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; next?: string }> }) {
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; next?: string; reset?: string }> }) {
   const user = await getCurrentUser();
   if (user) redirect(user.role === "ADMIN" ? "/admin" : "/portal");
-  const { error, next } = await searchParams;
+  const { error, next, reset } = await searchParams;
 
   return (
     <main className="pt-main narrow" id="main">
@@ -23,6 +23,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         Access is by invitation. WAJIBU approves every charity and company, then issues the organisation&rsquo;s
         administrator login.
       </p>
+      {reset && <div className="pt-msg ok" role="status">Your password has been changed. Please sign in with the new one.</div>}
       {error && <div className="pt-msg err" role="alert">{ERRORS[error] ?? ERRORS.invalid}</div>}
       <form action={login} className="pt-card pt-form">
         <input type="hidden" name="next" value={next ?? ""} />
@@ -36,8 +37,9 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </div>
         <button type="submit" className="pt-btn">Sign in</button>
         <p className="pt-hint">
-          Forgotten your password? Contact WAJIBU at{" "}
-          <a href="mailto:Admin1@wajibu.uk" style={{ textDecoration: "underline" }}>Admin1@wajibu.uk</a> and we will reset it.
+          <Link href="/forgot-password" style={{ textDecoration: "underline" }}>Forgot your password?</Link>
+          {" "}If you cannot reset it, email{" "}
+          <a href="mailto:Admin1@wajibu.uk" style={{ textDecoration: "underline" }}>Admin1@wajibu.uk</a>.
         </p>
       </form>
       <p className="pt-hint" style={{ marginTop: 20 }}>

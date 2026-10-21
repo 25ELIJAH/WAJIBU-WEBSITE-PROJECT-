@@ -6,6 +6,10 @@ import { db } from "@/lib/portal/db";
 import { createSession, destroySession, getCurrentUser } from "@/lib/portal/session";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/portal/password";
 import { audit } from "@/lib/portal/notify";
+import { sendMail } from "@/lib/portal/mail";
+import { siteOrigin } from "@/lib/portal/origin";
+import { RESET_TTL_MS, generateToken, hashToken, sessionCutoff } from "@/lib/portal/token";
+import { findValidReset } from "@/lib/portal/reset";
 
 // Throttle: failed sign-ins are already recorded in the audit log, so the limit is enforced from the
 // database and holds across server instances and restarts.
@@ -94,8 +98,80 @@ export async function changePassword(formData: FormData) {
 
   await db.user.update({
     where: { id: user.id },
-    data: { passwordHash: await hashPassword(next), mustChangePassword: false },
+    data: { passwordHash: await hashPassword(next), mustChangePassword: false, sessionsValidFrom: sessionCutoff() },
   });
+  await createSession(user.id); // every other session is now invalid; keep this browser signed in
   await audit(user.id, "password.changed");
   redirect(user.role === "ADMIN" ? "/admin?pw=1" : "/portal?pw=1");
+}
+
+
+/* ───────────────────────── forgot / reset password ───────────────────────── */
+
+const MAX_RESETS_PER_HOUR = 3;
+
+/**
+ * "Forgot password": emails a one-time link. The response is identical whether or not the address has an
+ * account, so this cannot be used to discover which emails are registered.
+ */
+export async function requestReset(formData: FormData) {
+  const parsed = z.string().trim().toLowerCase().email().max(200).safeParse(formData.get("email"));
+  if (parsed.success) {
+    const user = await db.user.findUnique({ where: { email: parsed.data }, include: { organisation: true } });
+    const eligible = !!user && user.active && (!user.organisation || user.organisation.status === "APPROVED");
+    if (user && eligible) {
+      const recent = await db.passwordReset.count({
+        where: { userId: user.id, createdAt: { gt: new Date(Date.now() - 60 * 60 * 1000) } },
+      });
+      if (recent < MAX_RESETS_PER_HOUR) {
+        const token = generateToken();
+        await db.passwordReset.create({
+          data: { userId: user.id, tokenHash: hashToken(token), expiresAt: new Date(Date.now() + RESET_TTL_MS) },
+        });
+        const link = `${await siteOrigin()}/reset-password?token=${token}`;
+        await sendMail({
+          to: user.email,
+          subject: "Reset your WAJIBU Charity Portal password",
+          text:
+            `Hello ${user.name},\n\nWe received a request to reset your WAJIBU Charity Portal password.\n\n` +
+            `Choose a new password (this link works once and expires in 1 hour):\n${link}\n\n` +
+            `If you did not ask for this, you can ignore this email – your password has not changed.\n\nWAJIBU`,
+        });
+        await audit(user.id, "password.reset.requested");
+      }
+    }
+  }
+  redirect("/forgot-password?sent=1");
+}
+
+export async function resetWithToken(formData: FormData) {
+  const token = String(formData.get("token") ?? "");
+  const next = String(formData.get("next") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+  const back = (error: string) => redirect(`/reset-password?token=${encodeURIComponent(token)}&error=${error}`);
+
+  const reset = await findValidReset(token);
+  if (!reset) redirect("/reset-password?error=invalid");
+  if (!next || !confirm) back("missing");
+  if (next !== confirm) back("mismatch");
+  if (passwordProblem(next)) back("weak");
+
+  const user = reset.user;
+  await db.$transaction([
+    db.user.update({
+      where: { id: user.id },
+      data: { passwordHash: await hashPassword(next), mustChangePassword: false, sessionsValidFrom: sessionCutoff() },
+    }),
+    // this link is spent, and so is every other outstanding link for the account
+    db.passwordReset.updateMany({ where: { userId: user.id, usedAt: null }, data: { usedAt: new Date() } }),
+    // a user who was locked out by failed attempts can sign in again
+    db.auditLog.deleteMany({ where: { action: "login.failed", detail: user.email } }),
+  ]);
+  await audit(user.id, "password.reset.completed");
+  await sendMail({
+    to: user.email,
+    subject: "Your WAJIBU Charity Portal password was changed",
+    text: `Hello ${user.name},\n\nYour password was just changed using a reset link. If this was not you, contact WAJIBU immediately at Admin1@wajibu.uk.\n\nWAJIBU`,
+  });
+  redirect("/login?reset=1");
 }

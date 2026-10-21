@@ -9,6 +9,7 @@ profile and every introduction. The portal uses the same palette, fonts and butt
 | --- | --- |
 | Registration | Organisations **request access** (`/request-access`). WAJIBU reviews, approves and chooses the single administrator who receives the login. |
 | Visibility | Charity profiles are visible **only to signed-in companies** (and WAJIBU). A charity can open **only its own page**. Companies cannot see each other – the company side is fully private. |
+| Passwords | Anyone can use **Forgot your password?** on the sign-in page: a one-time link (valid 1 hour, works once, max 3 per hour) is emailed. Using it signs the account out everywhere else. WAJIBU can also reset any password from Admin. |
 | Accounts | **One administrator per organisation**, set by WAJIBU. WAJIBU's own administrator is `Admin1@wajibu.uk` (Samuel Orie). |
 | Deletion | Charities and companies cannot delete anything. They press **Request account deletion** on their Account page; WAJIBU sees it under Admin → Requests and either deletes the organisation (Organisations → Manage → Delete) or declines it. |
 | Uploads | **No upload capability for charities or companies.** Only WAJIBU administrators add photos (JPG/PNG/WebP, 5 MB, verified from the file bytes, stored in the database and served only to permitted users). No videos. |
@@ -53,8 +54,10 @@ Photos are stored in the database, so no separate file storage is needed.
    `DATABASE_URL="postgresql://…" ADMIN_PASSWORD="a-strong-temporary-password" npm run db:seed`
    Then sign in as `Admin1@wajibu.uk` – you will be asked to choose your own password straight away.
 5. **Point wajibu.uk at the new deployment** (domain settings on the host).
-6. **Email** (optional) – create a Resend account, verify `wajibu.uk`, set `RESEND_API_KEY`. Until then notifications
-   appear in the portal only.
+6. **Email** – create a Resend account, verify `wajibu.uk`, set `RESEND_API_KEY` (and `MAIL_FROM`). **Self-service password
+   reset depends on this** – without it no reset email is delivered (WAJIBU can still reset passwords from Admin), and
+   notifications appear in the portal only. `NEXT_PUBLIC_SITE_URL` must be the real address: it is used in emailed links
+   (the request's Host header is deliberately never trusted in production).
 7. **Soft launch** – use Admin → **Import** to load the first charities from a CSV (e.g. a SharePoint export), then open each
    one to review the profile, add photos, assign its administrator and tick **Published**. Unpublished charities are
    invisible to companies. Admin → **Staff** manages WAJIBU administrator accounts.
@@ -73,8 +76,15 @@ Photos are stored in the database, so no separate file storage is needed.
 - Temporary passwords are shown to the WAJIBU admin once, via a 30-second httpOnly cookie – never in a URL or email.
 - Pages are `noindex` and `no-store`.
 
+## Password reset details
+
+- Tokens are 256-bit random values; only a SHA-256 hash is stored, so a database leak cannot be turned into working links.
+- The "forgot password" page answers identically whether or not the address has an account (no account discovery).
+- A used link, an expired link, or any other outstanding link for the same account stops working once the password changes.
+- Changing or resetting a password invalidates every older session for that user (`User.sessionsValidFrom`).
+- The reset page sends `Referrer-Policy: no-referrer` so the token never leaks to third parties.
+
 ## Not built yet (by design)
 
 - AI matching on company values (field and extension point exist: `CompanyProfile.values`, `src/app/api/chat/route.ts`).
-- Self-service password reset by email (today the WAJIBU admin resets passwords).
 - Direct SharePoint connection (today: export to CSV and use Admin → Import).

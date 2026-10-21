@@ -12,6 +12,9 @@ export async function sendMail({ to, subject, text }: Mail): Promise<boolean> {
   const from = process.env.MAIL_FROM ?? "WAJIBU <no-reply@wajibu.uk>";
   if (!key) {
     console.info(`[mail:dev] to=${[to].flat().join(",")} subject="${subject}"`);
+    // Local development only: show the body (e.g. a password-reset link). Never logged in production.
+    if (process.env.NODE_ENV !== "production") console.info(`[mail:dev] body:
+${text}`);
     return false;
   }
   try {

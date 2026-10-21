@@ -7,6 +7,7 @@ import { db } from "@/lib/portal/db";
 import { requireUser } from "@/lib/portal/session";
 import { audit, notifyOrganisation } from "@/lib/portal/notify";
 import { generateTempPassword, hashPassword } from "@/lib/portal/password";
+import { sessionCutoff } from "@/lib/portal/token";
 import { setFlash } from "@/lib/portal/flash";
 import { COMPLIANCE_LEVELS, CONNECTION_STATUSES, parseSectors, slugify } from "@/lib/portal/constants";
 import { getAllSectors } from "@/lib/portal/sectors";
@@ -226,7 +227,7 @@ export async function resetPassword(formData: FormData) {
   const user = await db.user.findUnique({ where: { id: userId.data } });
   if (!user) redirect("/admin/organisations?error=invalid");
   const temp = generateTempPassword();
-  await db.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(temp), mustChangePassword: true, active: true } });
+  await db.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(temp), mustChangePassword: true, active: true, sessionsValidFrom: sessionCutoff() } });
   await audit(admin.id, "user.reset", user.id);
   await setFlash({
     title: `Password reset for ${user.name}`,

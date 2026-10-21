@@ -49,6 +49,8 @@ export async function getCurrentUser() {
       include: { organisation: true },
     });
     if (!user || !user.active) return null;
+    // A password change/reset signs out every older session.
+    if (user.sessionsValidFrom && (payload.iat ?? 0) < user.sessionsValidFrom.getTime() / 1000) return null;
     if (user.organisation && user.organisation.status !== "APPROVED") return null;
     return user;
   } catch {
