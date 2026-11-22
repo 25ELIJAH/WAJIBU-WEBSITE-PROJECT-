@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
     const security = [
       { key: "X-Content-Type-Options", value: "nosniff" },
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      // Browsers only honour this over HTTPS, so it is harmless on http://localhost.
+      { key: "Strict-Transport-Security", value: "max-age=31536000" },
       { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
       { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
     ];

@@ -30,6 +30,7 @@ export default async function PortalLayout({ children }: { children: React.React
           { href: "/admin/connections", label: "Connections" },
           { href: "/admin/reports", label: "Reports" },
           { href: "/admin/staff", label: "Staff" },
+          { href: "/admin/activity", label: "Activity" },
         ]
       : user?.role === "COMPANY"
         ? [

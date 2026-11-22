@@ -19,7 +19,7 @@ profile and every introduction. The portal uses the same palette, fonts and butt
 | Shortlist | Companies tick several charities, add them to their **dashboard** shortlist, then request a connection for the selection. |
 | Matching | The company selects the charity, **WAJIBU takes over**. Both parties are notified (in-app, plus email when configured). The charity is told "a company has expressed interest" – the company's identity stays with WAJIBU. |
 | Featuring | WAJIBU can **feature** a charity and set a **compliance level (0–5)**. Order: featured → compliance level → A–Z. |
-| Reporting | Admin → Reports: views, distinct companies, shortlist adds and connection requests per charity (7/30/90 days or all time). |
+| Reporting | Admin → Reports: views, distinct companies, shortlist adds and connection requests per charity (7/30/90 days or all time), with a **Download CSV** button (spreadsheet-safe). Admin → **Activity** is an audit log of sign-ins, password changes, approvals, deletions and exports. |
 | Branding | Portal pages reuse the WAJIBU site design and sit under the WAJIBU brand. |
 
 ## Running it
@@ -62,9 +62,18 @@ Photos are stored in the database, so no separate file storage is needed.
    one to review the profile, add photos, assign its administrator and tick **Published**. Unpublished charities are
    invisible to companies. Admin → **Staff** manages WAJIBU administrator accounts.
 
+## Demo data and monitoring
+
+- **Demo data** – `npm run db:demo` fills a local database with six clearly-labelled "(Demo)" charities, two companies and a little
+  activity, and prints their sign-in details once, so you can show stakeholders a populated portal. Remove it all with
+  `npm run db:demo:clean`. It refuses to run against a PostgreSQL / production database unless `ALLOW_DEMO=1` is set.
+- **Uptime check** – `GET /api/health` returns `{"status":"ok"}` (or 503 if the database is unreachable) and reveals nothing else.
+  Point a monitor such as UptimeRobot at it.
+- **Errors** – unexpected errors and missing pages inside the portal show a friendly message with a way back; details stay in the server logs.
+
 ## Tests
 
-`npm test` runs the unit tests for the CSV importer, password rules, sector keys and photo validation.
+`npm test` runs the unit tests for the CSV importer and exporter (including spreadsheet-formula protection), password rules, reset tokens, sector keys and photo validation.
 
 ## Security notes
 
