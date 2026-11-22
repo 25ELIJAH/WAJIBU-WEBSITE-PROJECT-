@@ -7,7 +7,7 @@ out
 .netlify
 next-env.d.ts
 *.tsbuildinfo
-legacy
+/legacy
 .claude
 .data
 prisma/dev.db
